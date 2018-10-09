@@ -30,12 +30,12 @@ creation des Questions, des reponses, du thème et de la section
 */
 
 create table Theme (
-idTheme int primary key,
+idTheme int primary key identity(1,1),
 libelle varchar(MAX)
 ) 
 
 create table Question (
-idQuestion int primary key,
+idQuestion int primary key identity(1,1),
 idTheme int not null,
 enonce varchar(MAX),
 img image,
@@ -44,7 +44,7 @@ FOREIGN KEY (idTheme) REFERENCES Theme(idTheme)
 )
 
 create table Proposition (
-idProposition int primary key,
+idProposition int primary key identity(1,1),
 libelle varchar(max),
 estCorrecte binary,
 idQuestion int not null,
@@ -52,7 +52,7 @@ FOREIGN KEY (idQuestion) REFERENCES Question(idQuestion)
 )
 
 create table QuestionEpreuve(
-idQuestionEpreuve int primary key,
+idQuestionEpreuve int primary key identity(1,1),
 marquee binary default 0,
 idQuestion int not null,
 FOREIGN KEY (idQuestion) REFERENCES Question(idQuestion)
@@ -63,19 +63,19 @@ creation du Profil, de la promotion ainsi que de l'utilisateur.
 */
 
 create table Profil (
-idProfil int primary key,
+idProfil int primary key identity(1,1),
 codeProfil varchar(MAX),
 libelle varchar(MAX)
 )
 
 create table Promotion (
-idPromotion int primary key,
+idPromotion int primary key identity(1,1),
 codePromotion varchar(MAX),
 libelle varchar(MAX)
 )
 
 create table Utilisateur (
-idUser int primary key,
+idUser int primary key identity(1,1),
 nom varchar(MAX) not null,
 prenom varchar(MAX) not null,
 email varchar(MAX) not null,
@@ -88,7 +88,7 @@ FOREIGN KEY (idPromotion) REFERENCES Promotion(idPromotion)
 
 /* Création d'un test */
 create table Test (
-idTest int primary key,
+idTest int primary key identity(1,1),
 nom varchar(MAX),
 description varchar(MAX),
 durée int,
@@ -97,7 +97,7 @@ seuilBas int check (seuilBas >= 0) ,
 )
 
 create table Section (
-idSection int primary key,
+idSection int primary key identity(1,1),
 nbQuestionAttendues int,
 idTheme int not null,
 idTest int not null,
@@ -106,7 +106,7 @@ FOREIGN KEY (idTest) REFERENCES Test(idTest)
 )
 
 create table Epreuve (
-idEpreuve int primary key ,
+idEpreuve int primary key identity(1,1) ,
 debutValidite DateTime,
 finValidite DateTime,
 tempsEcoule integer,
