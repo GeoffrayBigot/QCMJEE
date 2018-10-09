@@ -8,20 +8,23 @@ public class Epreuve {
 	private Date debutValidite;
 	private Date finValidite;
 	private int tempsEcoule;
-	private int etatEpreuve;
+	private EtatEpreuve etatEpreuve;
 	private int note;
-	private String niveauAcquisition;
+	private Utilisateur user;
+	private Test test;
+	private NiveauAquisition niveauAcquisition;
 	private ArrayList<QuestionEpreuve> questions;
 
-	public Epreuve(Date debutValidite, Date finValidite, int tempsEcoule, int etatEpreuve, int note,
-			String niveauAcquisition) {
+	public Epreuve(Date debutValidite, Date finValidite,Test test, Utilisateur user) {
 		super();
 		this.debutValidite = debutValidite;
 		this.finValidite = finValidite;
-		this.tempsEcoule = tempsEcoule;
-		this.etatEpreuve = etatEpreuve;
-		this.note = note;
-		this.niveauAcquisition = niveauAcquisition;
+		this.user = user;
+		this.test = test;
+		this.etatEpreuve = EtatEpreuve.ENATTENTE;
+		this.niveauAcquisition= NiveauAquisition.NONAQUIS;
+		
+		
 		this.questions = new ArrayList<>();
 	}
 
@@ -49,28 +52,12 @@ public class Epreuve {
 		this.tempsEcoule = tempsEcoule;
 	}
 
-	public int getEtatEpreuve() {
-		return etatEpreuve;
-	}
-
-	public void setEtatEpreuve(int etatEpreuve) {
-		this.etatEpreuve = etatEpreuve;
-	}
-
 	public int getNote() {
 		return note;
 	}
 
 	public void setNote(int note) {
 		this.note = note;
-	}
-
-	public String getNiveauAcquisition() {
-		return niveauAcquisition;
-	}
-
-	public void setNiveauAcquisition(String niveauAcquisition) {
-		this.niveauAcquisition = niveauAcquisition;
 	}
 
 	public ArrayList<QuestionEpreuve> getQuestions() {
@@ -81,6 +68,30 @@ public class Epreuve {
 		this.questions = questions;
 	}
 	
+	public EtatEpreuve getEtatEpreuve() {
+		return etatEpreuve;
+	}
+
+	public void setEtatEpreuve(EtatEpreuve etatEpreuve) {
+		this.etatEpreuve = etatEpreuve;
+	}
+
+	public NiveauAquisition getNiveauAcquisition() {
+		return niveauAcquisition;
+	}
+
+	public void setNiveauAcquisition(NiveauAquisition niveauAcquisition) {
+		this.niveauAcquisition = niveauAcquisition;
+	}
+
+	public Utilisateur getUser() {
+		return user;
+	}
+
+	public Test getTest() {
+		return test;
+	}
+
 	public void ajouter(QuestionEpreuve question) {
 		questions.add(question);
 	}

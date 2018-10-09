@@ -1,12 +1,14 @@
 package bo;
 
-public class User {
+public class Utilisateur {
 
 	private int idUser;
 	private String nom;
 	private String prenom;
 	private String email;
 	private String password;
+	private Profil profil;
+	private Promotion promotion;
 	
 	public int getIdUser() {
 		return idUser;
@@ -39,14 +41,30 @@ public class User {
 		this.password = password;
 	}
 	
-	public User(int idUser, String nom, String prenom, String email, String password) {
+	public Profil getProfil() {
+		return profil;
+	}
+	public void setProfil(Profil profil) {
+		this.profil = profil;
+	}
+	public Promotion getPromotion() {
+		return promotion;
+	}
+	public void setPromotion(Promotion promotion) {
+		this.promotion = promotion;
+	}
+	public Utilisateur(int idUser, String nom, String prenom, String email, String password, Profil profil,
+			Promotion promotion) {
 		super();
 		this.idUser = idUser;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
 		this.password = password;
+		this.profil = profil;
+		this.promotion = promotion;
 	}
+
 	
 	
 }
