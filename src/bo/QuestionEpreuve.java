@@ -8,6 +8,7 @@ public class QuestionEpreuve extends Question {
 
 	public QuestionEpreuve(Theme theme, int idQuestion, String enonce, Image image, int point) {
 		super(theme, idQuestion, enonce, image, point);
+		marquee = false;
 	}
 
 	public boolean isMarquee() {
