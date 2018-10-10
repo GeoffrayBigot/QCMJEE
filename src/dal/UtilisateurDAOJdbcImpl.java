@@ -18,7 +18,7 @@ public class UtilisateurDAOJdbcImpl {
 	private static final String selectConnection = "Select idUtilisateur, nom, prenom, eMail, password from Utilisateur where email =? and password =?;";
 	private static final String updateUser = "update Utilisateur set nom = ?, prenom = ?, eMail = ?, password = ? where idUtilisateur = ?";
 	
-	public static ArrayList<Utilisateur> selectAll() throws SQLException {
+	public ArrayList<Utilisateur> selectAll() throws SQLException {
 		Utilisateur unUtilisateur = null;
 		ArrayList<Utilisateur> utilisateurs = new ArrayList<>();
 		Connection cnx = null;
@@ -46,7 +46,7 @@ public class UtilisateurDAOJdbcImpl {
 		return utilisateurs;
 	}
 
-	public static Utilisateur selectConnection(String eMail, String pass) throws SQLException {
+	public Utilisateur selectConnection(String eMail, String pass) throws SQLException {
 		Utilisateur user = null;
 
 		Connection cnx = null;
@@ -71,7 +71,7 @@ public class UtilisateurDAOJdbcImpl {
 		return user;
 	}
 	
-	public static void updateUtilisateur(Utilisateur user) throws SQLException {
+	public void updateUtilisateur(Utilisateur user) throws SQLException {
 		Connection cnx = null;
 		PreparedStatement stmt = null;
 		try {

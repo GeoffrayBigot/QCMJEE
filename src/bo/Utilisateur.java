@@ -73,8 +73,9 @@ public class Utilisateur {
 		this.profil = profil;
 		this.promotion = promotion;
 	}
-	public Utilisateur(String nom, String prenom, String email, String password) {
+	public Utilisateur(int idUtilisateur, String nom, String prenom, String email, String password) {
 		super();
+		this.idUser = idUtilisateur;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
