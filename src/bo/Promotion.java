@@ -9,6 +9,7 @@ public class Promotion {
 		this.codePromotion = codePromotion;
 		this.libelle = libelle;
 	}
+
 	public String getCodePromotion() {
 		return codePromotion;
 	}

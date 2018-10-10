@@ -73,8 +73,12 @@ public class Utilisateur {
 		this.profil = profil;
 		this.promotion = promotion;
 	}
+	public Utilisateur(String nom, String prenom, String email, String password) {
+		super();
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.password = password;
+	}
 
-
-	
-	
 }
