@@ -12,7 +12,9 @@ import bo.Theme;
 import util.DBConnection;
 
 public class SectionDAOJdbcImpl {
-	private static final String selectSelonTest = "Select * from Section_Test s where s.idTest = ?;";
+	private static final String selectSelonTest = "Select t.libelle,s.nbQuestionsATirer,s.idTest, s.idTheme  from Section_Test s"
+			+ " join Theme t on t.idTheme = s.idTheme"
+			+ " where s.idTest = ?;";
 	public static ArrayList<Section> selectSelonTest(int idTest) throws SQLException {
 		ArrayList<Section> sections = new ArrayList<>();
 		
@@ -27,7 +29,7 @@ public class SectionDAOJdbcImpl {
 			rs= prep1.executeQuery();
 			//traitement du rs
 			while(rs.next()) {
-				sections.add(new Section(rs.getInt(1),new Theme(rs.getInt(2))));
+				sections.add(new Section(rs.getInt(2),new Theme(rs.getInt(4),rs.getString(1))));
 			}
 		}catch (SQLException e) {
 			throw new SQLException("probleme SectionDAO methode lister"+e.getMessage());
