@@ -1,6 +1,5 @@
 package bo;
 
-import java.awt.Image;
 import java.util.ArrayList;
 
 public class Question {
@@ -8,10 +7,9 @@ public class Question {
 	private Theme theme;
 	private int idQuestion;;
 	private String enonce;
-	private Image image;
+	private String image;
 	private int point;
-	private ArrayList<Proposition> propositions;
-	
+
 	public Theme getTheme() {
 		return theme;
 	}
@@ -30,10 +28,10 @@ public class Question {
 	public void setEnonce(String enonce) {
 		this.enonce = enonce;
 	}
-	public Image getImage() {
+	public String getImage() {
 		return image;
 	}
-	public void setImage(Image image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 	public int getPoint() {
@@ -42,14 +40,19 @@ public class Question {
 	public void setPoint(int point) {
 		this.point = point;
 	}
-	public Question(Theme theme, int idQuestion, String enonce, Image image, int point) {
+	public Question(Theme theme, int idQuestion, String enonce, String image, int point) {
 		super();
 		this.theme = theme;
 		this.idQuestion = idQuestion;
 		this.enonce = enonce;
 		this.image = image;
 		this.point = point;
-		this.propositions = new ArrayList<>();
+	}
+	
+	@Override
+	public String toString() {
+		return "Question [idQuestion=" + idQuestion + ", enonce=" + enonce + ", image=" + image
+				+ ", point=" + point +" ,theme=" + theme+"]";
 	}
 	
 }

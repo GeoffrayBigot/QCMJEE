@@ -31,5 +31,10 @@ public class Proposition {
 		this.libelle = libelle;
 		this.estCorrecte = estCorrecte;
 	}
+	
+	@Override
+	public String toString() {
+		return "Proposition [idReponse=" + idReponse + ", libelle=" + libelle + ", estCorrecte=" + estCorrecte + "]";
+	}
 
 }
