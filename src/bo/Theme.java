@@ -22,6 +22,11 @@ public class Theme {
 		this.idTheme = idTheme;
 		this.libelle = libelle;
 	}
+	
+	@Override
+	public String toString() {
+		return "Theme [idTheme=" + idTheme + ", libelle=" + libelle + "]";
+	}
 
 	
 }

@@ -16,11 +16,7 @@ public class GestionConnexion {
 			 user = utilisateurDAO.selectConnection(eMail, pass);
 			}
 		}
-		if(user == null) {
-			return null;			
-		} else {
-			return user;			
-		}
+		return user;			
 	}
 
 }
