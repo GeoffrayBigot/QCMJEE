@@ -32,8 +32,7 @@ public class connexionServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 	}
 
@@ -41,28 +40,22 @@ public class connexionServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String email  = request.getParameter("email");
 		String mdp = request.getParameter("password");
 		
 		try {
 			Utilisateur user = GestionConnexion.connexion(email, mdp);
 			HttpSession session = request.getSession();
-			System.out.println(user.getNom()+ " "+user.getPrenom());
-			request.setAttribute( "userName", user );
-
-			this.getServletContext().getRequestDispatcher(ACCUEIL).forward(request, response);	
-			
 			if(user.getIdUser() > 0 ){
-				session.setAttribute("sessionUtilisateur", user);				
+				session.setAttribute("userNom", user.getNom());
+				session.setAttribute("userPrenom", user.getPrenom());
+				
+				response.sendRedirect("http://localhost:8080/QCMJEE/");
 			}else{
 				session.setAttribute("sessionUtilisateur", null);
 			}
-			
-			
-			
+	
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			
 		}

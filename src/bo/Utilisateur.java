@@ -81,5 +81,11 @@ public class Utilisateur {
 		this.email = email;
 		this.password = password;
 	}
+	@Override
+	public String toString() {
+		return "Utilisateur [idUser=" + idUser + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email
+				+ ", password=" + password + ", profil=" + profil + ", promotion=" + promotion + "]";
+	}
 
+	
 }

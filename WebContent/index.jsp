@@ -7,12 +7,9 @@ String pageTitle = "Accueil";
 <body>
 <h1>Accueil</h1>
 
-<% 
-/* 	username = request.getAttribute("sessionUtilisateur");
-	if(username != null ){
-  		out.println( username.getNom() );
-	} */
-%>
+<% if(session.getAttribute("userNom") != null){ %>
+	<p>Bonjour 	<%=session.getAttribute("userNom")%> <%=session.getAttribute("userPrenom")%></p>
+<% } %>
 
 </body>
 </html>
