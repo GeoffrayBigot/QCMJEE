@@ -22,6 +22,9 @@ public class Theme {
 		this.idTheme = idTheme;
 		this.libelle = libelle;
 	}
+	public Theme(int idTheme){
+		this.idTheme=idTheme;
+	}
 	
 	
 }
