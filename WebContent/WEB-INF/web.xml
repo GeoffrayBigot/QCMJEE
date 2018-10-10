@@ -9,4 +9,24 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>connexionServlet</display-name>
+    <servlet-name>connexionServlet</servlet-name>
+    <servlet-class>Servlet.connexionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>connexionServlet</servlet-name>
+    <url-pattern>/connexion</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>deconnexionServlet</display-name>
+    <servlet-name>deconnexionServlet</servlet-name>
+    <servlet-class>Servlet.deconnexionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>deconnexionServlet</servlet-name>
+    <url-pattern>/deconnexion</url-pattern>
+  </servlet-mapping>
 </web-app>
