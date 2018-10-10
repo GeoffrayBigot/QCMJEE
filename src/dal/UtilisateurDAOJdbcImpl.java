@@ -46,7 +46,7 @@ public class UtilisateurDAOJdbcImpl {
 		return utilisateurs;
 	}
 	
-	public static Utilisateur selectconnection(String eMail, String pass) throws SQLException {
+	public static Utilisateur selectConnection(String eMail, String pass) throws SQLException {
 		Utilisateur user = null;
 		
 		Connection cnx = null;
