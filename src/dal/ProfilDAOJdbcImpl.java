@@ -15,6 +15,8 @@ public class ProfilDAOJdbcImpl {
 	
 	private static final String selectProfils = "Select codeProfil, libelle from Profil;";
 	private static final String insertProfil = "insert into Profil(codeProfil,libelle) values(?,?);";
+	private static final String deleteProfil = "delete from Profil where codeProfil=?;";
+
 	public static ArrayList<Profil> selectAll() throws SQLException {
 		Profil unProfil = null;
 		ArrayList<Profil> profils = new ArrayList<>();
@@ -65,6 +67,33 @@ public class ProfilDAOJdbcImpl {
 			
 		}catch (SQLException e) {
 			throw new SQLException("probleme ProfilDAO methode insert"+e.getMessage());
+		} finally {
+			try {
+				cnx.close();
+			} catch (SQLException e) {
+				throw new SQLException("probleme ProfilDAO fermeture connexion"+e.getMessage());
+			}
+			
+		}
+	}
+	public static void deleteProfil(Profil vProfil) throws SQLException{
+		Connection cnx = null;
+		PreparedStatement  stmt = null;
+
+		try {
+			cnx = DBConnection.seConnecter();
+			stmt= cnx.prepareStatement(deleteProfil); 
+			
+			stmt.setInt(1, vProfil.getCodeProfil());
+
+			stmt.setString(2, vProfil.getLibelle());
+
+
+			stmt.execute();
+			System.out.println("Suppression réalisée avec succès");
+			
+		}catch (SQLException e) {
+			throw new SQLException("probleme ProfilDAO methode delete"+e.getMessage());
 		} finally {
 			try {
 				cnx.close();

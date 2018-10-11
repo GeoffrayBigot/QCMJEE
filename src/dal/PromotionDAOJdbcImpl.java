@@ -14,6 +14,7 @@ public class PromotionDAOJdbcImpl {
 	
 	private static final String selectPromotions = "Select codePromo, Libelle from Promotion;";
 	private static final String insertPromotion = "insert into Promotion(codePromo,Libelle) values(?,?);";
+	private static final String deletePromotion = "delete from Promotion where codePromo=?;";
 
 	public static ArrayList<Promotion> selectAll() throws SQLException {
 		Promotion unePromo = null;
@@ -74,4 +75,33 @@ public class PromotionDAOJdbcImpl {
 			
 		}
 	}
+	
+	public static void deletePromotion(Promotion vPromotion) throws SQLException{
+		Connection cnx = null;
+		PreparedStatement  stmt = null;
+
+		try {
+			cnx = DBConnection.seConnecter();
+			stmt= cnx.prepareStatement(deletePromotion); 
+			
+			stmt.setString(1, vPromotion.getCodePromotion());
+
+			stmt.setString(2, vPromotion.getLibelle());
+
+
+			stmt.execute();
+			System.out.println("Suppression réalisée avec succès");
+			
+		}catch (SQLException e) {
+			throw new SQLException("probleme PromotionDAO methode delete"+e.getMessage());
+		} finally {
+			try {
+				cnx.close();
+			} catch (SQLException e) {
+				throw new SQLException("probleme PromotionDAO fermeture connexion"+e.getMessage());
+			}
+			
+		}
+	}
+	
 }
