@@ -15,7 +15,7 @@ public class QuestionDAOJdbcImpl {
 	private static final String selectAll = "select idQuestion, enonce, media, points, q.idTheme, t.libelle from Question q"
 			+ " join Theme t on t.idTheme = q.idTheme";
 	
-	public static ArrayList<Question> selectAll() throws SQLException {
+	public ArrayList<Question> selectAll() throws SQLException {
 		Question uneQuestion = null;
 		ArrayList<Question> questions = new ArrayList<>();
 		Connection cnx = null;

@@ -29,4 +29,10 @@ public class Promotion {
 		this.libelle = libelle;
 	}
 
+	@Override
+	public String toString() {
+		return "Promotion [codePromotion=" + codePromotion + ", libelle=" + libelle + "]";
+	}
+
+	
 }

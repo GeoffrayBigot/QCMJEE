@@ -22,6 +22,7 @@ public class Profil {
 	public void setCodeProfil(int codeProfil) {
 		this.codeProfil = codeProfil;
 	}
+
 	public String getLibelle() {
 		return libelle;
 	}
@@ -29,5 +30,8 @@ public class Profil {
 		this.libelle = libelle;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Profil [codeProfil=" + codeProfil + ", libelle=" + libelle + "]";
+	}
 }

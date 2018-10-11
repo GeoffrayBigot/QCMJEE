@@ -14,7 +14,7 @@ public class PropositionDAOjdbcImpl {
 
 	private static final String selectByIdQuestion = "Select idProposition, enonce, estBonne from Proposition where idQuestion =?;";
 	
-	public static ArrayList<Proposition> selectByIdQuestion(int idQuestion) throws SQLException {
+	public ArrayList<Proposition> selectByIdQuestion(int idQuestion) throws SQLException {
 		ArrayList<Proposition> propositions = new ArrayList<>();
 		Proposition uneProposition = null;
 		Connection cnx = null;
