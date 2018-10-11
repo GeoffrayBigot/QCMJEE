@@ -1,22 +1,15 @@
 package dal;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.TimeZone;
 
 import bo.Epreuve;
 import bo.EtatEpreuve;
 import bo.NiveauAquisition;
-import bo.Section;
 import bo.Test;
-import bo.Theme;
 import bo.Utilisateur;
 import util.DBConnection;
 
@@ -26,7 +19,6 @@ public class EpreuveDAOJdbcImpl {
 	private static final String selectByIdUser = "select e.dateDedutValidite, e.dateFinValidite, e.tempsEcoule, e.etat,e.note_obtenue,e.niveau_obtenu, test.idTest, test.libelle, test.description,test.duree, test.seuil_haut, test.seuil_bas, u.idUtilisateur, u.nom, u.prenom, u.email, u.password, u.codeProfil, u.codePromo from EPREUVE e inner join Test test on e.idTest = test.idTest inner join Utilisateur u on u.idUtilisateur = e.idUtilisateur where e.idUtilisateur = ?;";
 	public static void insertEpreuve(Epreuve aEpreuve) throws SQLException {
 		Connection cnx = null;
-		ResultSet rs = null;
 		PreparedStatement  stmt = null;
 
 		try {
@@ -45,7 +37,6 @@ public class EpreuveDAOJdbcImpl {
 
 			stmt.execute();
 			System.out.println("Insertion réalisée avec succès");
-			//traitement du rs
 			
 		}catch (SQLException e) {
 			throw new SQLException("probleme EpreuveDAO methode insert"+e.getMessage());
@@ -61,7 +52,7 @@ public class EpreuveDAOJdbcImpl {
 	}
 
 	public static ArrayList<Epreuve> selectbyIdUtilisateur(int idUtilisateur) throws SQLException {
-		ArrayList<Epreuve> vListeEpreuves= new ArrayList();
+		ArrayList<Epreuve> vListeEpreuves= new ArrayList<Epreuve>();
 		
 		Connection cnx = null;
 		ResultSet rs = null;
