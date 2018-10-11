@@ -15,10 +15,11 @@ import util.DBConnection;
 public class UtilisateurDAOJdbcImpl {
 
 	private static final String selectUsers = "Select * from Utilisateur;";
-	private static final String selectConnection = "Select idUtilisateur, nom, prenom, eMail, password from Utilisateur where email =? and password =?;";
-	private static final String updateUser = "update Utilisateur set nom = ?, prenom = ?, eMail = ?, password = ? where idUtilisateur = ?";
-	private static final String insertUser ="insert into Utilisateur values(?,?,?,?,?,?)";
-	
+	private static final String selectConnection = "Select idUtilisateur, nom, prenom, eMail, password, codeProfil, codePromo from Utilisateur where email =? and password =?;";
+	private static final String selectByIdUser = "Select  nom, prenom, eMail, password, codeProfil, codePromo from Utilisateur where idUtilisateur =?;";
+	private static final String updateUser = "update Utilisateur set nom = ?, prenom = ?, eMail = ?, password = ?,codeProfil =?,codePromo =? where idUtilisateur = ?";
+	private static final String insertUser = "insert into Utilisateur values(?,?,?,?,?,?)";
+
 	public ArrayList<Utilisateur> selectAll() throws SQLException {
 		Utilisateur unUtilisateur = null;
 		ArrayList<Utilisateur> utilisateurs = new ArrayList<>();
@@ -31,7 +32,8 @@ public class UtilisateurDAOJdbcImpl {
 			rs = stmt.executeQuery(selectUsers);
 			// traitement du rs
 			while (rs.next()) {
-				unUtilisateur = new Utilisateur(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+				unUtilisateur = new Utilisateur(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5),rs.getInt(6),rs.getString(7));
 				utilisateurs.add(unUtilisateur);
 			}
 		} catch (SQLException e) {
@@ -60,10 +62,10 @@ public class UtilisateurDAOJdbcImpl {
 			stmt.setString(2, pass);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
-				user = new Utilisateur(rs.getInt("idUtilisateur"), rs.getString("nom"), rs.getString("prenom"), rs.getString("eMail"),
-						rs.getString("password"));
+				user = new Utilisateur(rs.getInt("idUtilisateur"), rs.getString("nom"), rs.getString("prenom"),
+						rs.getString("eMail"), rs.getString("password"),rs.getInt("codeProfil"),rs.getString("codePromo"));
 			}
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new SQLException("probleme UtilisateurDAO fermeture connexion" + e.getMessage());
 		} finally {
 			stmt.close();
@@ -71,7 +73,7 @@ public class UtilisateurDAOJdbcImpl {
 		}
 		return user;
 	}
-	
+
 	public void updateUtilisateur(Utilisateur user) throws SQLException {
 		Connection cnx = null;
 		PreparedStatement stmt = null;
@@ -82,21 +84,28 @@ public class UtilisateurDAOJdbcImpl {
 			stmt.setString(2, user.getPrenom());
 			stmt.setString(3, user.getEmail());
 			stmt.setString(4, user.getPassword());
-			stmt.setInt(5, user.getIdUser());
+			if(user.getProfil() != null)
+				stmt.setInt(5, user.getProfil().getCodeProfil());
+			else
+				stmt.setInt(5, 0);
+			if(user.getPromotion() != null)
+			stmt.setString(6, user.getPromotion().getCodePromotion());
+			else 
+				stmt.setString(6, "");	
+			stmt.setInt(7, user.getIdUser());
 			stmt.execute();
 			System.out.println("Update avec succès !");
-		}  catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new SQLException("probleme UtilisateurDAO fermeture connexion" + e.getMessage());
-		}  finally {
+		} finally {
 			stmt.close();
 			cnx.close();
 		}
 	}
 
-	public void insertUtilisateur(Utilisateur user) throws SQLException  {
+	public void insertUtilisateur(Utilisateur user) throws SQLException {
 		Connection cnx = null;
 		PreparedStatement stmt = null;
-		
 		try {
 			cnx = DBConnection.seConnecter();
 			stmt = cnx.prepareStatement(insertUser);
@@ -114,6 +123,28 @@ public class UtilisateurDAOJdbcImpl {
 			stmt.close();
 			cnx.close();
 		}
+	}
 
+	public Utilisateur selectById(int idUser) throws SQLException {
+		Utilisateur user = null;
+		Connection cnx = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			cnx = DBConnection.seConnecter();
+			stmt = cnx.prepareStatement(selectByIdUser);
+			stmt.setInt(1, idUser);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				user = new Utilisateur(rs.getInt("idUtilisateur"), rs.getString("nom"), rs.getString("prenom"), rs.getString("eMail"),
+						rs.getString("password"),rs.getInt("codeProfil"),rs.getString("codePromo") );
+			}
+		}catch (SQLException e) {
+			throw new SQLException("probleme UtilisateurDAO fermeture connexion" + e.getMessage());
+		} finally {
+			stmt.close();
+			cnx.close();
+		}
+		return user;
 	}
 }

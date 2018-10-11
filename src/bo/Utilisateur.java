@@ -56,7 +56,6 @@ public class Utilisateur {
 	public Utilisateur(String nom, String prenom, String email, String password, int codeProfil,
 			String codePromotion) {
 		super();
-		this.idUser = idUser;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
@@ -75,13 +74,19 @@ public class Utilisateur {
 		this.profil = profil;
 		this.promotion = promotion;
 	}
-	public Utilisateur(int idUtilisateur, String nom, String prenom, String email, String password) {
+	public Utilisateur(int idUtilisateur, String nom, String prenom, String email, String password, int codeProfil,
+			String codePromotion) {
 		super();
 		this.idUser = idUtilisateur;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
 		this.password = password;
+		this.profil = new Profil();
+		this.profil.setCodeProfil(codeProfil);
+		this.promotion = new Promotion();
+		this.promotion.setCodePromotion(codePromotion);
+
 	}
 	@Override
 	public String toString() {
