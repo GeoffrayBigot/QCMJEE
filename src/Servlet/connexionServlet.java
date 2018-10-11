@@ -18,8 +18,7 @@ import dal.UtilisateurDAOJdbcImpl;
  */
 public class connexionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    public static final String VUE = "/WEB-INF/jsp/connexion.jsp";
-    public static final String ACCUEIL = "/index.jsp";
+    public static final String VUE = "/index.jsp";
        	
     /**
      * @see HttpServlet#HttpServlet()
@@ -32,8 +31,14 @@ public class connexionServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
-		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		System.out.println(session);
+		if(session.getId() == null) {
+			this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+		}else{
+			response.sendRedirect("http://localhost:8080/QCMJEE/accueil");
+		}		
 	}
 
 	/**
@@ -43,22 +48,26 @@ public class connexionServlet extends HttpServlet {
 		String email  = request.getParameter("email");
 		String mdp = request.getParameter("password");
 		
+		Utilisateur user = null;
 		try {
-			Utilisateur user = GestionConnexion.connexion(email, mdp);
-			HttpSession session = request.getSession();
+			user = GestionConnexion.connexion(email, mdp);		
+			
+			HttpSession session = request.getSession();		
 			if(user.getIdUser() > 0 ){
+				String isConnected = "1";
+				session.setAttribute("isConnected", isConnected);
 				session.setAttribute("userNom", user.getNom());
 				session.setAttribute("userPrenom", user.getPrenom());
 				
-				response.sendRedirect("http://localhost:8080/QCMJEE/");
+				response.sendRedirect("http://localhost:8080/QCMJEE/accueil");
 			}else{
 				session.setAttribute("sessionUtilisateur", null);
 			}
-	
-		} catch (SQLException e) {
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
 		}
+		
 		
 	}
 

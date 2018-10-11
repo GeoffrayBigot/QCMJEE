@@ -9,7 +9,6 @@ public class GestionConnexion {
 	
 	public static Utilisateur connexion(String eMail, String pass) throws Exception {
 		Utilisateur user = null ;
-		
 		if(validationEmail(eMail)) {
 			if(validationMotsDePasse(pass)) {
 			 user = utilisateurDAO.selectConnection(eMail, pass);

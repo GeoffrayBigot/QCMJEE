@@ -25,12 +25,7 @@ public class DBConnection {
 			cnx= DriverManager.getConnection(URL,USER,PWD);
 		} catch(SQLException e) {
 			throw new SQLException("Impossible d'obtenir la connexion"+e.getMessage());
-		}
-
-	
-		
-		
-		
+		}		
 		
 		
 		return cnx;

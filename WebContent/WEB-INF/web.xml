@@ -29,4 +29,14 @@
     <servlet-name>deconnexionServlet</servlet-name>
     <url-pattern>/deconnexion</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>accueilServlet</display-name>
+    <servlet-name>accueilServlet</servlet-name>
+    <servlet-class>Servlet.accueilServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>accueilServlet</servlet-name>
+    <url-pattern>/accueil</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -5,18 +5,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class deconnexionServlet
+ * Servlet implementation class accueilServlet
  */
-public class deconnexionServlet extends HttpServlet {
+public class accueilServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	public static final String VUE = "/WEB-INF/jsp/accueil.jsp";
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public deconnexionServlet() {
+    public accueilServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,13 +26,15 @@ public class deconnexionServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		 /* Récupération et destruction de la session en cours */
-        HttpSession session = request.getSession();
-        session.invalidate();
+		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+	}
 
-        /* Affichage de la page de connexion */
-        response.sendRedirect("http://localhost:8080/QCMJEE/");
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		// doGet(request, response);
 	}
 
 }
