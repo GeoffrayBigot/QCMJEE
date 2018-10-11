@@ -28,4 +28,13 @@ public class GestionQuestions {
 			throw new SQLException("probleme GestionQuestion fermeture connexion" + e.getMessage());
 		}
 	}
+	
+	public void ajouterQuestion(String enonceQ,byte[] img,int pts,int idTheme,ArrayList<Proposition> propositions) throws SQLException {
+		try {
+			questionsDAO.insertQuestion(new Question(idTheme, enonceQ, img, pts), propositions);
+		} catch (SQLException e) {
+			throw new SQLException("probleme GestionQuestion fermeture connexion " + e.getMessage());
+		}
+	}
+	
 }

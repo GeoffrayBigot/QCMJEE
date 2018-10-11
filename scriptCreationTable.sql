@@ -36,7 +36,7 @@ GO
 CREATE
   TABLE PROFIL
   (
-    codeProfil INTEGER NOT NULL ,
+    codeProfil INTEGER NOT NULL,
     libelle    VARCHAR (100) NOT NULL ,
     CONSTRAINT PROFIL_PK PRIMARY KEY CLUSTERED (codeProfil)
 WITH
@@ -68,7 +68,7 @@ GO
 CREATE
   TABLE PROPOSITION
   (
-    idProposition INTEGER NOT NULL ,
+    idProposition INTEGER NOT NULL IDENTITY,
     enonce        VARCHAR (500) NOT NULL ,
     estBonne BIT NOT NULL ,
     idQuestion INTEGER NOT NULL ,

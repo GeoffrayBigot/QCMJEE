@@ -32,6 +32,12 @@ public class Proposition {
 		this.estCorrecte = estCorrecte;
 	}
 	
+	public Proposition(String libelle, boolean estCorrecte) {
+		super();
+		this.libelle = libelle;
+		this.estCorrecte = estCorrecte;
+	}
+	
 	@Override
 	public String toString() {
 		return "Proposition [idReponse=" + idReponse + ", libelle=" + libelle + ", estCorrecte=" + estCorrecte + "]";

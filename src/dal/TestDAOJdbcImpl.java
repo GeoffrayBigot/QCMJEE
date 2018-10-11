@@ -27,7 +27,7 @@ public class TestDAOJdbcImpl {
 		try {
 			cnx = DBConnection.seConnecter();
 			
-			stmt = cnx.createStatement(rs.TYPE_SCROLL_SENSITIVE,rs.CONCUR_READ_ONLY);
+			stmt = cnx.createStatement();
 			rs= stmt.executeQuery(selectAll);
 			//traitement du rs
 			while(rs.next()) {

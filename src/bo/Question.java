@@ -7,7 +7,7 @@ public class Question {
 	private Theme theme;
 	private int idQuestion;;
 	private String enonce;
-	private String image;
+	private byte[] image;
 	private int point;
 
 	public Theme getTheme() {
@@ -28,19 +28,22 @@ public class Question {
 	public void setEnonce(String enonce) {
 		this.enonce = enonce;
 	}
-	public String getImage() {
-		return image;
-	}
-	public void setImage(String image) {
-		this.image = image;
-	}
+
 	public int getPoint() {
 		return point;
 	}
 	public void setPoint(int point) {
 		this.point = point;
 	}
-	public Question(Theme theme, int idQuestion, String enonce, String image, int point) {
+	
+	public byte[] getImage() {
+		return image;
+	}
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+	
+	public Question(Theme theme, int idQuestion, String enonce, byte[] image, int point) {
 		super();
 		this.theme = theme;
 		this.idQuestion = idQuestion;
@@ -49,6 +52,14 @@ public class Question {
 		this.point = point;
 	}
 	
+	public Question(int idTheme, String enonce, byte[] image, int point) {
+		super();
+		this.theme = new Theme();
+		this.theme.setIdTheme(idTheme);
+		this.enonce = enonce;
+		this.image = image;
+		this.point = point;
+	}
 	@Override
 	public String toString() {
 		return "Question [idQuestion=" + idQuestion + ", enonce=" + enonce + ", image=" + image

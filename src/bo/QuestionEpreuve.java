@@ -6,7 +6,7 @@ public class QuestionEpreuve extends Question {
 
 	private boolean marquee;
 
-	public QuestionEpreuve(Theme theme, int idQuestion, String enonce, String image, int point) {
+	public QuestionEpreuve(Theme theme, int idQuestion, String enonce, byte[] image, int point) {
 		super(theme, idQuestion, enonce, image, point);
 		marquee = false;
 	}

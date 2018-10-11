@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import bo.Utilisateur;
 import dal.UtilisateurDAOJdbcImpl;
 
-public class GestionInscriptions {
+public class GestionCompte {
 
 	private static UtilisateurDAOJdbcImpl utilisateurDAO = new UtilisateurDAOJdbcImpl();
 	
