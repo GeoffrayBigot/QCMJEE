@@ -6,8 +6,9 @@ String pageTitle = "accueil";
 </jsp:include>
 <body>
     <% if(session.getAttribute("isConnected") != null){ %>
-	<p>Bonjour 	<%=session.getAttribute("userNom")%> <%=session.getAttribute("userPrenom")%></p>
+	<p>Bonjour 	<%=session.getAttribute("userNom")%> <%=session.getAttribute("userPrenom")%></p>	
 	<% } %>
+	
     
 </body>
 <jsp:include page="/WEB-INF/jsp/footer.jsp" ></jsp:include>

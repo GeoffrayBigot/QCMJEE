@@ -1,0 +1,15 @@
+body{
+	position: relative;
+	min-height: 100vh;
+}
+
+.connexion{
+	position: absolute;
+	width: 400px;	
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	background-color: #000;
+	padding: 20px;
+	color: #fff;
+}
