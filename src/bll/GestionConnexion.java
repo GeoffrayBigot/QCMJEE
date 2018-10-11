@@ -27,11 +27,7 @@ public class GestionConnexion {
 	 */
 	private static boolean validationEmail( String email ) throws Exception {
 	    if ( email != null && email.trim().length() != 0 ) {
-	        if ( !email.matches( "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" ) ) {
-	           return false;
-	        } else {
 	        	return true;
-	        }
 	    } else {
 	        return false;
 	    }
