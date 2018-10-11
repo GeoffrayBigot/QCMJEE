@@ -85,9 +85,11 @@ public class connexionServlet extends HttpServlet {
 				erreurs.put("user", e.getMessage());
 			}
 			
+		} else {
+			session.setAttribute("erreurs", erreurs);	
+			this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 		}
-		session.setAttribute("erreurs", erreurs);	
-		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+		
 		
 	}
 
