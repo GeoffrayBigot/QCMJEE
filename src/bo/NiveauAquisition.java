@@ -2,6 +2,6 @@ package bo;
 
 public enum NiveauAquisition {
 	
-	NONAQUIS,ENCOURSAQUISITION,AQUIS;
+	NA,ECA,A;
 
 }

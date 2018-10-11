@@ -21,13 +21,36 @@ public class Epreuve {
 		this.finValidite = finValidite;
 		this.user = user;
 		this.test = test;
-		this.etatEpreuve = EtatEpreuve.ENATTENTE;
-		this.niveauAcquisition= NiveauAquisition.NONAQUIS;
+		this.etatEpreuve = EtatEpreuve.EA;
+		this.niveauAcquisition= NiveauAquisition.NA;
 		
 		
 		this.questions = new ArrayList<>();
 	}
-
+	public Epreuve(Date debutValidite, Date finValidite,Test test, Utilisateur user, NiveauAquisition niveauAquisition, EtatEpreuve etatEpreuve, ArrayList<QuestionEpreuve> listeQuestions) {
+		super();
+		this.debutValidite = debutValidite;
+		this.finValidite = finValidite;
+		this.user = user;
+		this.test = test;
+		this.etatEpreuve = etatEpreuve;
+		this.niveauAcquisition= niveauAquisition;
+		
+		
+		this.questions = listeQuestions;
+	}
+	public Epreuve(Date debutValidite, Date finValidite,Test test, Utilisateur user, NiveauAquisition niveauAquisition, EtatEpreuve etatEpreuve) {
+		super();
+		this.debutValidite = debutValidite;
+		this.finValidite = finValidite;
+		this.user = user;
+		this.test = test;
+		this.etatEpreuve = etatEpreuve;
+		this.niveauAcquisition= niveauAquisition;
+		
+		
+		this.questions = new ArrayList<>();
+	}
 	public Date getDebutValidite() {
 		return debutValidite;
 	}
