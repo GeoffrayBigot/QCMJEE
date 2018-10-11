@@ -51,31 +51,39 @@ public class connexionServlet extends HttpServlet {
 	    Map<String, String> erreurs = new HashMap<String, String>();
 	    HttpSession session = request.getSession();			
 		Utilisateur user = null;
+		boolean emailVerif = false, mdpVerif = false;
 		
 		try {
 			gestionConnexion.validationEmail(email);
+			emailVerif =true;
 		} catch (Exception e) {
 			erreurs.put("email", e.getMessage());
 		}
+		
 		try {
 			gestionConnexion.validationMotsDePasse(mdp);
+			mdpVerif = true;
 		} catch (Exception e) {
 			erreurs.put("password", e.getMessage());
 		}		
 		
-		try {				
-			user = gestionConnexion.connexion(email, mdp);		
+		if(emailVerif && mdpVerif) {
+			try {				
+				user = gestionConnexion.connexion(email, mdp);		
 				
-			if(user.getIdUser() > 0 ){
-				session.setAttribute("isConnected", user);
-				session.setAttribute("userNom", user.getNom());
-				session.setAttribute("userPrenom", user.getPrenom());				
-				response.sendRedirect("http://localhost:8080/QCMJEE/accueil");
-			}else{
-				session.setAttribute("isConnected", null);
+				gestionConnexion.validationUtilisateur(user);
+				
+				if(user.getIdUser() > 0 ){
+					session.setAttribute("isConnected", user);
+					session.setAttribute("userNom", user.getNom());
+					session.setAttribute("userPrenom", user.getPrenom());				
+					response.sendRedirect("http://localhost:8080/QCMJEE/accueil");
+				}else{
+					session.setAttribute("isConnected", null);
+				}
+			} catch (Exception e) {
+				erreurs.put("user", e.getMessage());
 			}
-		} catch (Exception e) {
-			erreurs.put("user", e.getMessage());
 			
 		}
 		session.setAttribute("erreurs", erreurs);	

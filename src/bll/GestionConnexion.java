@@ -9,8 +9,6 @@ public class GestionConnexion {
 
 	public Utilisateur connexion(String eMail, String pass) throws Exception {
 		Utilisateur user = utilisateurDAO.selectConnection(eMail, pass);
-		if (user == null)
-			throw new Exception("L'utilisateur n'est pas connu des services secrets");
 		return user;
 	}
 
@@ -40,4 +38,9 @@ public class GestionConnexion {
 		}
 	}
 
+	public void validationUtilisateur(Utilisateur user) throws Exception {
+		if (user == null) {
+			throw new Exception("Le user n'est pas connu.");
+		}
+	}
 }

@@ -13,7 +13,7 @@
 			<form method="post" action="connexion">
 			<div class="form-group row">
 			    <div class="col-12 text-center">
-			    	<h1>Connection</h1>
+			    	<h1>Connexion</h1>
 			    </div>
 			  </div>
 			  <div class="form-group row">
