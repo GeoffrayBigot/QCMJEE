@@ -9,6 +9,11 @@ public class Promotion {
 		this.codePromotion = codePromotion;
 		this.libelle = libelle;
 	}
+	
+	public Promotion() {
+		this.codePromotion = "";
+		this.libelle = "";
+	}
 
 	public String getCodePromotion() {
 		return codePromotion;

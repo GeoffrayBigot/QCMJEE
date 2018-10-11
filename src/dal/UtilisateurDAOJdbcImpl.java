@@ -17,6 +17,7 @@ public class UtilisateurDAOJdbcImpl {
 	private static final String selectUsers = "Select * from Utilisateur;";
 	private static final String selectConnection = "Select idUtilisateur, nom, prenom, eMail, password from Utilisateur where email =? and password =?;";
 	private static final String updateUser = "update Utilisateur set nom = ?, prenom = ?, eMail = ?, password = ? where idUtilisateur = ?";
+	private static final String insertUser ="insert into Utilisateur values(?,?,?,?,?,?)";
 	
 	public ArrayList<Utilisateur> selectAll() throws SQLException {
 		Utilisateur unUtilisateur = null;
@@ -92,4 +93,27 @@ public class UtilisateurDAOJdbcImpl {
 		}
 	}
 
+	public void insertUtilisateur(Utilisateur user) throws SQLException  {
+		Connection cnx = null;
+		PreparedStatement stmt = null;
+		
+		try {
+			cnx = DBConnection.seConnecter();
+			stmt = cnx.prepareStatement(insertUser);
+			stmt.setString(1, user.getNom());
+			stmt.setString(2, user.getPrenom());
+			stmt.setString(3, user.getEmail());
+			stmt.setString(4, user.getPassword());
+			stmt.setInt(5, user.getProfil().getCodeProfil());
+			stmt.setString(6, user.getPromotion().getCodePromotion());
+			stmt.execute();
+			System.out.println("Insert avec succès !");
+		} catch (SQLException e) {
+			throw new SQLException("probleme UtilisateurDAO fermeture connexion" + e.getMessage());
+		} finally {
+			stmt.close();
+			cnx.close();
+		}
+
+	}
 }

@@ -2,18 +2,24 @@ package bo;
 
 public class Profil {
 
-	private String codeProfil;
+	private int codeProfil;
 	private String libelle;
 	
-	public Profil(String codeProfil, String libelle) {
+	public Profil(int codeProfil, String libelle) {
 		super();
 		this.codeProfil = codeProfil;
 		this.libelle = libelle;
 	}
-	public String getCodeProfil() {
+	
+	public Profil() {
+		this.codeProfil = 0;
+		this.libelle = "";
+	}
+	
+	public int getCodeProfil() {
 		return codeProfil;
 	}
-	public void setCodeProfil(String codeProfil) {
+	public void setCodeProfil(int codeProfil) {
 		this.codeProfil = codeProfil;
 	}
 	public String getLibelle() {

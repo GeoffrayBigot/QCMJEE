@@ -1,7 +1,5 @@
 package bll;
 
-import java.sql.SQLException;
-
 import bo.Utilisateur;
 import dal.UtilisateurDAOJdbcImpl;
 

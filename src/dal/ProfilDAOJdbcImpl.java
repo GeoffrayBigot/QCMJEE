@@ -28,7 +28,7 @@ public class ProfilDAOJdbcImpl {
 			stmt = cnx.createStatement();
 			rs= stmt.executeQuery(selectProfils);
 			while(rs.next()) {
-				unProfil= new Profil(rs.getString(1),rs.getString(2));
+				unProfil= new Profil(rs.getInt(1),rs.getString(2));
 				
 				
 				profils.add(unProfil);

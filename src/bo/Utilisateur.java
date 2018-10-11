@@ -53,16 +53,18 @@ public class Utilisateur {
 	public void setPromotion(Promotion promotion) {
 		this.promotion = promotion;
 	}
-	public Utilisateur(int idUser, String nom, String prenom, String email, String password, Profil profil,
-			Promotion promotion) {
+	public Utilisateur(String nom, String prenom, String email, String password, int codeProfil,
+			String codePromotion) {
 		super();
 		this.idUser = idUser;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
 		this.password = password;
-		this.profil = profil;
-		this.promotion = promotion;
+		this.profil = new Profil();
+		this.profil.setCodeProfil(codeProfil);
+		this.promotion = new Promotion();
+		this.promotion.setCodePromotion(codePromotion);
 	}
 	public Utilisateur(String nom, String prenom, String email, String password, Profil profil, Promotion promotion) {
 		super();
