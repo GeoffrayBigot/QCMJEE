@@ -9,7 +9,6 @@ String pageTitle = "accueil";
 	<p>Bonjour 	<%=session.getAttribute("userNom")%> <%=session.getAttribute("userPrenom")%></p>	
 	<p>tu es le GREAT <%=session.getAttribute("userProfil")%> <%=session.getAttribute("userNom")%> </p>	
 	<% } %>
-	
     
 </body>
 <jsp:include page="/WEB-INF/jsp/footer.jsp" ></jsp:include>

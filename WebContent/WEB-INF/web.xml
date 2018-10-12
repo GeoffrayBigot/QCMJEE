@@ -50,4 +50,14 @@
     <servlet-name>choixTestServlet</servlet-name>
     <url-pattern>/choixTest</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <description></description>
+    <display-name>gestionQuestionServlet</display-name>
+    <servlet-name>gestionQuestionServlet</servlet-name>
+    <servlet-class>Servlet.gestionQuestionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>gestionQuestionServlet</servlet-name>
+    <url-pattern>/gestionQuestion</url-pattern>
+  </servlet-mapping>
 </web-app>
