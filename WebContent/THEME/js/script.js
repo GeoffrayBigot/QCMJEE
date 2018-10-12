@@ -11,6 +11,35 @@ $( document ).ready(function() {
 		{
         	$("#typeText").collapse('toggle');
         }
-    	console.log($(this).val());
+    	
    })
+   
+    
+    if($("#choixEpreuve").val() == "EA") 
+    {
+         $(".EA").removeClass('d-none');
+         $(".EC").addClass('d-none');
+         $(".T ").addClass('d-none');
+    }    
+   
+   $("#choixEpreuve").change(function(){
+    if($(this).val() == "EA") 
+    {
+         $(".EA").removeClass('d-none');
+         $(".EC").addClass('d-none');
+         $(".T ").addClass('d-none');
+    }else if($(this).val() == "EC")
+	{
+    	 $(".EA").addClass('d-none');
+         $(".EC").removeClass('d-none');
+         $(".T ").addClass('d-none');
+    }else if($(this).val() == "T ")
+	{
+    	 $(".EA").addClass('d-none');
+         $(".EC").addClass('d-none');
+         $(".T ").removeClass('d-none');
+    }
+   })
+
 });
+
