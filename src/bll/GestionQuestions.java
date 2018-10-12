@@ -45,5 +45,11 @@ public class GestionQuestions {
 			throw new SQLException("probleme GestionQuestion fermeture connexion " + e.getMessage());
 		}
 	}
-	
+	public ArrayList<Question> selectQuestionsByIdTheme(int idTheme) throws SQLException {
+		try {
+			return questionsDAO.selectQuestionByIdTheme(idTheme);	
+		} catch (SQLException e) {
+			throw new SQLException("probleme GestionQuestion fermeture connexion" + e.getMessage());
+		}
+	}
 }
