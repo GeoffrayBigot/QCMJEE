@@ -5,6 +5,7 @@ public class Proposition {
 	private int idReponse;
 	private String libelle;
 	private boolean estCorrecte;
+	private int idQuestion;
 	
 	public int getIdReponse() {
 		return idReponse;
@@ -25,13 +26,26 @@ public class Proposition {
 		this.estCorrecte = estCorrecte;
 	}
 	
+	public int getIdQuestion() {
+		return idQuestion;
+	}
+	public void setIdQuestion(int idQuestion) {
+		this.idQuestion = idQuestion;
+	}
 	public Proposition(int idReponse, String libelle, boolean estCorrecte) {
 		super();
 		this.idReponse = idReponse;
 		this.libelle = libelle;
 		this.estCorrecte = estCorrecte;
 	}
-	
+
+	public Proposition(int idReponse, String libelle, boolean estCorrecte, int idQuestion) {
+		super();
+		this.idReponse = idReponse;
+		this.libelle = libelle;
+		this.estCorrecte = estCorrecte;
+		this.idQuestion = idQuestion;
+	}
 	public Proposition(String libelle, boolean estCorrecte) {
 		super();
 		this.libelle = libelle;

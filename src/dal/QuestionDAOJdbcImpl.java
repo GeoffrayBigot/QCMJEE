@@ -46,6 +46,7 @@ public class QuestionDAOJdbcImpl {
 		return questions;
 	}
 	
+	
 	public void insertQuestion(Question question,ArrayList<Proposition> propositions) throws SQLException {
 		Connection cnx = null;
 		PreparedStatement stmt = null;

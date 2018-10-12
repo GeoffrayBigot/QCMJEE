@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import bll.GestionConnexion;
 import bll.GestionQuestions;
+import bo.Proposition;
 import bo.Question;
 
 /**
@@ -38,13 +39,16 @@ public class gestionQuestionServlet extends HttpServlet {
 		HttpSession session = request.getSession();	
 		
 		try {
-			ArrayList<Question> list = gestionQuestions.selectAllQuestion();			
-			session.setAttribute("listQuestion", list);
+			ArrayList<Question> questions = gestionQuestions.selectAllQuestion();
+			ArrayList<Proposition> propositions = gestionQuestions.selectAllReponse();
+			session.setAttribute("listQuestion", questions);
+			session.setAttribute("listReponse", propositions);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 	}
 
@@ -55,5 +59,6 @@ public class gestionQuestionServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 
 	}
+	 
 
 }

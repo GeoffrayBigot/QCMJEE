@@ -26,6 +26,15 @@ String pageTitle = "Gestion Question";
 					<td><c:out value="${item.theme.libelle}"></c:out></td>
 				</tr>
 			</c:forEach>
+			
+			<c:forEach items="${listReponse}" var="item">				
+				<tr>
+					<th scope="row"><c:out value="${item.idReponse}"></c:out></th>
+					<td><c:out value="${item.libelle}"></c:out></td>
+					<td><c:out value="${item.estCorrecte}"></c:out></td>
+					<td><c:out value="${item.idQuestion}"></c:out></td>
+				</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 </body>

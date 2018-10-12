@@ -29,6 +29,15 @@ public class GestionQuestions {
 		}
 	}
 	
+
+	public ArrayList<Proposition> selectAllReponse() throws SQLException {
+		try {
+			return propositionDAO.selectAllReponse();	
+		} catch (SQLException e) {
+			throw new SQLException("probleme GestionQuestion fermeture connexion" + e.getMessage());
+		}
+	}
+	
 	public void ajouterQuestion(String enonceQ,byte[] img,int pts,int idTheme,ArrayList<Proposition> propositions) throws SQLException {
 		try {
 			questionsDAO.insertQuestion(new Question(idTheme, enonceQ, img, pts), propositions);
