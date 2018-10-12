@@ -1,14 +1,17 @@
 package bll;
 
 import bo.Utilisateur;
+import dal.ProfilDAOJdbcImpl;
 import dal.UtilisateurDAOJdbcImpl;
 
 public class GestionConnexion {
 
 	private static UtilisateurDAOJdbcImpl utilisateurDAO = new UtilisateurDAOJdbcImpl();
+	private static ProfilDAOJdbcImpl profilDAO = new ProfilDAOJdbcImpl();
 
 	public Utilisateur connexion(String eMail, String pass) throws Exception {
 		Utilisateur user = utilisateurDAO.selectConnection(eMail, pass);
+		user.setProfil(profilDAO.selectById(user.getProfil().getCodeProfil()));
 		return user;
 	}
 
@@ -17,8 +20,8 @@ public class GestionConnexion {
 	 */
 	public void validationEmail(String email) throws Exception {
 		if (email != null && email.trim().length() != 0) {
-			if (!email.matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)")) {
-				throw new Exception("Merci de saisir une adresse mail valide.");
+			if (!utilisateurDAO.selectCheckEmail(email).equals(email)) {
+				throw new Exception("l'email n'existe pas.");
 			}
 		} else {
 			throw new Exception("Merci de saisir une adresse mail.");
@@ -30,17 +33,18 @@ public class GestionConnexion {
 	 */
 	public void validationMotsDePasse(String motDePasse) throws Exception {
 		if (motDePasse != null && motDePasse.trim().length() != 0) {
-		 if (motDePasse.trim().length() < 3) {
-				throw new Exception("Les mots de passe doivent contenir au moins 3 caractères.");
+			if (!utilisateurDAO.selectCheckMdp(motDePasse).equals(motDePasse)) {
+				throw new Exception("ce mot de passe n'existe pas.");
 			}
 		} else {
 			throw new Exception("Merci de saisir et confirmer votre mot de passe.");
 		}
 	}
 
-	public void validationUtilisateur(Utilisateur user) throws Exception {
+	public void validationUtilisateur(String eMail, String pass) throws Exception {
+		Utilisateur user = utilisateurDAO.selectConnection(eMail, pass);
 		if (user == null) {
 			throw new Exception("Le user n'est pas connu.");
-		}
+		} 
 	}
 }

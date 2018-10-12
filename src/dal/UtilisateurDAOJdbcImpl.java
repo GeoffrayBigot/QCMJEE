@@ -16,6 +16,8 @@ public class UtilisateurDAOJdbcImpl {
 
 	private static final String selectUsers = "Select * from Utilisateur;";
 	private static final String selectConnection = "Select idUtilisateur, nom, prenom, eMail, password, codeProfil, codePromo from Utilisateur where email =? and password =?;";
+	private static final String selectCheckEmail = "Select eMail from Utilisateur where email =? ";
+	private static final String selectCheckMdp = "Select password from Utilisateur where password =? ";
 	private static final String selectByIdUser = "Select  nom, prenom, eMail, password, codeProfil, codePromo from Utilisateur where idUtilisateur =?;";
 	private static final String updateUser = "update Utilisateur set nom = ?, prenom = ?, eMail = ?, password = ?,codeProfil =?,codePromo =? where idUtilisateur = ?";
 	private static final String insertUser = "insert into Utilisateur values(?,?,?,?,?,?)";
@@ -51,7 +53,6 @@ public class UtilisateurDAOJdbcImpl {
 
 	public Utilisateur selectConnection(String eMail, String pass) throws SQLException {
 		Utilisateur user = null;
-
 		Connection cnx = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -73,7 +74,51 @@ public class UtilisateurDAOJdbcImpl {
 		}
 		return user;
 	}
-
+	
+	public String selectCheckEmail(String eMail) throws SQLException {
+		Connection cnx = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String row = "";
+		try {
+			cnx = DBConnection.seConnecter();
+			stmt = cnx.prepareStatement(selectCheckEmail);
+			stmt.setString(1, eMail);
+			rs = stmt.executeQuery();
+			if(rs.next()) {
+				row = rs.getString(1);
+			} 
+			return row;
+		} catch (SQLException e) {
+			throw new SQLException("probleme UtilisateurDAO fermeture connexion" + e.getMessage());
+		} finally {
+			stmt.close();
+			cnx.close();
+		}
+	}
+	
+	public String selectCheckMdp(String pass) throws SQLException {
+		Connection cnx = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String row = "";
+		try {
+			cnx = DBConnection.seConnecter();
+			stmt = cnx.prepareStatement(selectCheckMdp);
+			stmt.setString(1, pass);
+			rs = stmt.executeQuery();
+			if(rs.next()) {
+				row = rs.getString(1);
+			} 
+			return row;
+		} catch (SQLException e) {
+			throw new SQLException("probleme UtilisateurDAO fermeture connexion" + e.getMessage());
+		} finally {
+			stmt.close();
+			cnx.close();
+		}
+	}
+	
 	public void updateUtilisateur(Utilisateur user) throws SQLException {
 		Connection cnx = null;
 		PreparedStatement stmt = null;

@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>QCMJEE</display-name>
   <welcome-file-list>
- 	<welcome-file>connexion</welcome-file>
+    <welcome-file>connexion</welcome-file>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
     <welcome-file>index.jsp</welcome-file>
@@ -39,5 +39,15 @@
   <servlet-mapping>
     <servlet-name>accueilServlet</servlet-name>
     <url-pattern>/accueil</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>choixTestServlet</display-name>
+    <servlet-name>choixTestServlet</servlet-name>
+    <servlet-class>Servlet.choixTestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>choixTestServlet</servlet-name>
+    <url-pattern>/choixTest</url-pattern>
   </servlet-mapping>
 </web-app>

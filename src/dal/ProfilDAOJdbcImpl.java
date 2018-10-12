@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import bo.Profil;
+import bo.Utilisateur;
 import util.DBConnection;
 
 public class ProfilDAOJdbcImpl {
@@ -16,6 +17,7 @@ public class ProfilDAOJdbcImpl {
 	private static final String selectProfils = "Select codeProfil, libelle from Profil;";
 	private static final String insertProfil = "insert into Profil(codeProfil,libelle) values(?,?);";
 	private static final String deleteProfil = "delete from Profil where codeProfil=?;";
+	private static final String selectProfilById = "Select libelle from Profil where codeProfil= ?";
 
 	public static ArrayList<Profil> selectAll() throws SQLException {
 		Profil unProfil = null;
@@ -104,4 +106,25 @@ public class ProfilDAOJdbcImpl {
 		}
 	}
 	
+	public Profil selectById(int idProfil) throws SQLException {
+		Profil profil = null;
+		Connection cnx = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			cnx = DBConnection.seConnecter();
+			stmt = cnx.prepareStatement(selectProfilById);
+			stmt.setInt(1, idProfil);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				profil = new Profil(idProfil, rs.getString(1));
+			}
+		}catch (SQLException e) {
+			throw new SQLException("probleme ProfilDAO fermeture connexion " + e.getMessage());
+		} finally {
+			stmt.close();
+			cnx.close();
+		}
+		return profil;
+	}
 }

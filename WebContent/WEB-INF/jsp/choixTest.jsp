@@ -13,5 +13,3 @@ String pageTitle = "accueil";
     
 </body>
 <jsp:include page="/WEB-INF/jsp/footer.jsp" ></jsp:include>
-
-
