@@ -21,7 +21,6 @@ public class EpreuveDAOJdbcImpl {
 	private static final String selectById = "select e.dateDedutValidite, e.dateFinValidite, e.tempsEcoule, e.etat,e.note_obtenue,e.niveau_obtenu, test.idTest, test.libelle, test.description,test.duree, test.seuil_haut, test.seuil_bas, u.idUtilisateur, u.nom, u.prenom, u.email, u.password, u.codeProfil, u.codePromo, e.idEpreuve from EPREUVE e inner join Test test on e.idTest = test.idTest inner join Utilisateur u on u.idUtilisateur = e.idUtilisateur where e.idEpreuve = ?;";
 	private static final String updateEtatEpreuve = "update Epreuve set etat = ? where idEpreuve = ?;";
 	private static final String updateAquisitionEpreuve = "update Epreuve set niveau_obtenu = ? where idEpreuve = ?;";
-
 	public static void insertEpreuve(Epreuve aEpreuve) throws SQLException {
 		Connection cnx = null;
 		PreparedStatement  stmt = null;
