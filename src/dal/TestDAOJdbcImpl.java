@@ -17,7 +17,7 @@ public class TestDAOJdbcImpl {
 
 	private static final String selectAll = "Select * from Test;";
 	private static final String selectById = "Select idTest, libelle,description, duree, seuil_haut, seuil_bas from Test where idTest = ?;";
-	public static ArrayList<Test> selectAll() throws SQLException {
+	public  ArrayList<Test> selectAll() throws SQLException {
 		Test unTest = null;
 		ArrayList<Test> tests = new ArrayList<>();
 		

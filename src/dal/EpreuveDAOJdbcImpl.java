@@ -56,7 +56,7 @@ public class EpreuveDAOJdbcImpl {
 
 	}
 
-	public static ArrayList<Epreuve> selectbyIdUtilisateur(int idUtilisateur) throws SQLException {
+	public ArrayList<Epreuve> selectbyIdUtilisateur(int idUtilisateur) throws SQLException {
 		ArrayList<Epreuve> vListeEpreuves= new ArrayList<Epreuve>();
 		
 		Connection cnx = null;
@@ -115,16 +115,16 @@ public class EpreuveDAOJdbcImpl {
 		}
 		return vListeEpreuves;
 	}
-	public static ArrayList<Epreuve> selectbyId(Epreuve epreuve) throws SQLException {
-		ArrayList<Epreuve> vListeEpreuves= new ArrayList<Epreuve>();
+		public Epreuve selectbyId(int idEpreuve) throws SQLException {
 		
 		Connection cnx = null;
 		ResultSet rs = null;
-	
+		Epreuve vEpreuve = null;
+
 		try {
 			cnx = DBConnection.seConnecter();
 			PreparedStatement prep1 = cnx.prepareStatement(selectById); 
-			prep1.setInt(1, epreuve.getId());
+			prep1.setInt(1, idEpreuve);
 			rs= prep1.executeQuery();
 			//traitement du rs
 			NiveauAquisition vNiveau = NiveauAquisition.NA;
@@ -161,7 +161,7 @@ public class EpreuveDAOJdbcImpl {
 					default:
 						break;
 					}
-			 vListeEpreuves.add(new Epreuve(rs.getInt(20),rs.getDate(1),rs.getDate(2),new Test(rs.getInt(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12)),new Utilisateur(rs.getInt(13),rs.getString(14),rs.getString(15),rs.getString(16),rs.getString(17),rs.getInt(18), rs.getString(19)),vNiveau,vEtatEpreuve, rs.getInt(5)));
+				vEpreuve = new Epreuve(rs.getInt(20),rs.getDate(1),rs.getDate(2),new Test(rs.getInt(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12)),new Utilisateur(rs.getInt(13),rs.getString(14),rs.getString(15),rs.getString(16),rs.getString(17),rs.getInt(18), rs.getString(19)),vNiveau,vEtatEpreuve, rs.getInt(5));
 			}
 		}catch (SQLException e) {
 			throw new SQLException("probleme UtilisateurDAO methode selectById "+e.getMessage());
@@ -172,7 +172,7 @@ public class EpreuveDAOJdbcImpl {
 				throw new SQLException("probleme UtilisateurDAO fermeture connexion"+e.getMessage());
 			}
 		}
-		return vListeEpreuves;
+		return vEpreuve;
 	}
 	public static void updateNote(Epreuve epreuve) throws SQLException {
 		Connection cnx = null;

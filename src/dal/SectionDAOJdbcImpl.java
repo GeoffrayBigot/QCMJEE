@@ -16,7 +16,7 @@ public class SectionDAOJdbcImpl {
 			+ " join Theme t on t.idTheme = s.idTheme"
 			+ " where s.idTest = ?;";
 	
-	public static ArrayList<Section> selectSelonTest(int idTest) throws SQLException {
+	public ArrayList<Section> selectSelonTest(int idTest) throws SQLException {
 		ArrayList<Section> sections = new ArrayList<>();
 		
 		Connection cnx = null;
