@@ -16,6 +16,7 @@ import util.DBConnection;
 public class TestDAOJdbcImpl {
 
 	private static final String selectAll = "Select * from Test;";
+	private static final String selectById = "Select idTest, libelle,description, duree, seuil_haut, seuil_bas from Test where idTest = ?;";
 	public static ArrayList<Test> selectAll() throws SQLException {
 		Test unTest = null;
 		ArrayList<Test> tests = new ArrayList<>();
@@ -47,7 +48,27 @@ public class TestDAOJdbcImpl {
 		}
 		return tests;
 	}
-	
+	public static Test selectById(int idTest) throws SQLException {
+		Test test = null;
+		Connection cnx = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			cnx = DBConnection.seConnecter();
+			stmt = cnx.prepareStatement(selectById);
+			stmt.setInt(1, idTest);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				test = new Test(idTest, rs.getString(2),rs.getString(3),rs.getInt(4),rs.getInt(5),rs.getInt(6) );
+			}
+		}catch (SQLException e) {
+			throw new SQLException("probleme ProfilDAO fermeture connexion " + e.getMessage());
+		} finally {
+			stmt.close();
+			cnx.close();
+		}
+		return test;
+	}
 
 	
 }
