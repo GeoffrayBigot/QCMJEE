@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import bo.Profil;
-import bo.Promotion;
 import bo.Utilisateur;
 import util.DBConnection;
 
@@ -18,10 +16,10 @@ public class UtilisateurDAOJdbcImpl {
 	private static final String selectConnection = "Select idUtilisateur, nom, prenom, eMail, password, codeProfil, codePromo from Utilisateur where email =? and password =?;";
 	private static final String selectCheckEmail = "Select eMail from Utilisateur where email =? ";
 	private static final String selectCheckMdp = "Select password from Utilisateur where password =? ";
-	private static final String selectByIdUser = "Select  nom, prenom, eMail, password, codeProfil, codePromo from Utilisateur where idUtilisateur =?;";
+	private static final String selectByIdUser = "Select idUtilisateur, nom, prenom, eMail, password, codeProfil, codePromo from Utilisateur where idUtilisateur =?;";
 	private static final String updateUser = "update Utilisateur set nom = ?, prenom = ?, eMail = ?, password = ?,codeProfil =?,codePromo =? where idUtilisateur = ?";
 	private static final String insertUser = "insert into Utilisateur values(?,?,?,?,?,?)";
-
+	private static final String deleteUser = "delete from Utilisateur  where idUtilisateur=?";
 	public ArrayList<Utilisateur> selectAll() throws SQLException {
 		Utilisateur unUtilisateur = null;
 		ArrayList<Utilisateur> utilisateurs = new ArrayList<>();
@@ -191,5 +189,26 @@ public class UtilisateurDAOJdbcImpl {
 			cnx.close();
 		}
 		return user;
+	}
+	public void deleteUtilisateur(Utilisateur vUser) throws SQLException {
+		Connection cnx = null;
+		PreparedStatement stmt = null;
+		try {
+			cnx = DBConnection.seConnecter();
+			stmt = cnx.prepareStatement(deleteUser);
+			stmt.setInt(1, vUser.getIdUser());
+	
+			stmt.execute();
+			System.out.println("delete avec succès !");
+		} catch (SQLException e) {
+			throw new SQLException("probleme UtilisateurDAO methode delete" + e.getMessage());
+		} finally {
+			
+			stmt.close();
+			try {
+				cnx.close();
+			} catch (SQLException e) {
+				throw new SQLException("probleme Utilisateur fermeture connexion"+e.getMessage());
+			}		}
 	}
 }
