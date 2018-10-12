@@ -19,6 +19,7 @@ public class EpreuveDAOJdbcImpl {
 	private static final String selectByIdUser = "select e.dateDedutValidite, e.dateFinValidite, e.tempsEcoule, e.etat,e.note_obtenue,e.niveau_obtenu, test.idTest, test.libelle, test.description,test.duree, test.seuil_haut, test.seuil_bas, u.idUtilisateur, u.nom, u.prenom, u.email, u.password, u.codeProfil, u.codePromo, e.idEpreuve from EPREUVE e inner join Test test on e.idTest = test.idTest inner join Utilisateur u on u.idUtilisateur = e.idUtilisateur where e.idUtilisateur = ?;";
 	private static final String updateNote = "update Epreuve set note_obtenue = ? where idEpreuve = ?;";
 	private static final String selectById = "select e.dateDedutValidite, e.dateFinValidite, e.tempsEcoule, e.etat,e.note_obtenue,e.niveau_obtenu, test.idTest, test.libelle, test.description,test.duree, test.seuil_haut, test.seuil_bas, u.idUtilisateur, u.nom, u.prenom, u.email, u.password, u.codeProfil, u.codePromo, e.idEpreuve from EPREUVE e inner join Test test on e.idTest = test.idTest inner join Utilisateur u on u.idUtilisateur = e.idUtilisateur where e.idEpreuve = ?;";
+	private static final String updateEtatEpreuve = "update Epreuve set etat = ? where idEpreuve = ?;";
 
 	public static void insertEpreuve(Epreuve aEpreuve) throws SQLException {
 		Connection cnx = null;
@@ -72,10 +73,10 @@ public class EpreuveDAOJdbcImpl {
 			while(rs.next()){
 				
 				switch (rs.getString(6)) {
-				case "NA":
+				case "NA ":
 					 vNiveau =NiveauAquisition.NA;
 					break;
-				case "A":
+				case "A  ":
 					 vNiveau =NiveauAquisition.A;
 						break;
 				case "ECA":
@@ -87,7 +88,7 @@ public class EpreuveDAOJdbcImpl {
 				}
 					
 				switch (rs.getString(4)) {
-					case "T":
+					case "T ":
 						vEtatEpreuve =EtatEpreuve.T;
 						break;
 					case "EC":
@@ -121,7 +122,7 @@ public class EpreuveDAOJdbcImpl {
 	
 		try {
 			cnx = DBConnection.seConnecter();
-			PreparedStatement prep1 = cnx.prepareStatement(selectByIdUser); 
+			PreparedStatement prep1 = cnx.prepareStatement(selectById); 
 			prep1.setInt(1, epreuve.getId());
 			rs= prep1.executeQuery();
 			//traitement du rs
@@ -131,10 +132,10 @@ public class EpreuveDAOJdbcImpl {
 			while(rs.next()){
 				
 				switch (rs.getString(6)) {
-				case "NA":
+				case "NA ":
 					 vNiveau =NiveauAquisition.NA;
 					break;
-				case "A":
+				case "A  ":
 					 vNiveau =NiveauAquisition.A;
 						break;
 				case "ECA":
@@ -146,7 +147,7 @@ public class EpreuveDAOJdbcImpl {
 				}
 					
 				switch (rs.getString(4)) {
-					case "T":
+					case "T ":
 						vEtatEpreuve =EtatEpreuve.T;
 						break;
 					case "EC":
@@ -186,6 +187,32 @@ public class EpreuveDAOJdbcImpl {
 			stmt.setInt(2, epreuve.getId());
 			
 
+			stmt.execute();
+			System.out.println("Modification réalisée avec succès");
+			
+		}catch (SQLException e) {
+			throw new SQLException("probleme EpreuveDAO methode updateNote"+e.getMessage());
+		} finally {
+			try {
+				cnx.close();
+			} catch (SQLException e) {
+				throw new SQLException("probleme Epreuve fermeture connexion"+e.getMessage());
+			}
+			
+		}
+
+	}
+	public static void updateEtatEpreuve(Epreuve epreuve) throws SQLException {
+		Connection cnx = null;
+		PreparedStatement  stmt = null;
+
+		try {
+			cnx = DBConnection.seConnecter();
+			stmt= cnx.prepareStatement(updateEtatEpreuve); 
+			
+			stmt.setString(1, epreuve.getEtatEpreuve().name());
+			stmt.setInt(2, epreuve.getId());
+			
 			stmt.execute();
 			System.out.println("Modification réalisée avec succès");
 			

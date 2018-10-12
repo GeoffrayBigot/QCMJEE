@@ -41,6 +41,7 @@ public class Epreuve {
 	}
 	public Epreuve(int idEpreuve, Date debutValidite, Date finValidite,Test test, Utilisateur user, NiveauAquisition niveauAquisition, EtatEpreuve etatEpreuve, int note) {
 		super();
+		this.id = idEpreuve;
 		this.debutValidite = debutValidite;
 		this.finValidite = finValidite;
 		this.user = user;
