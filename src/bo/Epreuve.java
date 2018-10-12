@@ -14,7 +14,7 @@ public class Epreuve {
 	private Test test;
 	private NiveauAquisition niveauAcquisition;
 	private ArrayList<QuestionEpreuve> questions;
-
+	private int id;
 	public Epreuve(Date debutValidite, Date finValidite,Test test, Utilisateur user) {
 		super();
 		this.debutValidite = debutValidite;
@@ -39,7 +39,7 @@ public class Epreuve {
 		
 		this.questions = listeQuestions;
 	}
-	public Epreuve(Date debutValidite, Date finValidite,Test test, Utilisateur user, NiveauAquisition niveauAquisition, EtatEpreuve etatEpreuve) {
+	public Epreuve(int idEpreuve, Date debutValidite, Date finValidite,Test test, Utilisateur user, NiveauAquisition niveauAquisition, EtatEpreuve etatEpreuve, int note) {
 		super();
 		this.debutValidite = debutValidite;
 		this.finValidite = finValidite;
@@ -47,7 +47,7 @@ public class Epreuve {
 		this.test = test;
 		this.etatEpreuve = etatEpreuve;
 		this.niveauAcquisition= niveauAquisition;
-		
+		this.note= note;
 		
 		this.questions = new ArrayList<>();
 	}
@@ -121,6 +121,9 @@ public class Epreuve {
 	
 	public QuestionEpreuve extraire(int index) {
 		return questions.get(index);
+	}
+	public int getId() {
+		return id;
 	}
 
 }

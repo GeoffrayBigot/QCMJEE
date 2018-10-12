@@ -15,6 +15,7 @@ public class SectionDAOJdbcImpl {
 	private static final String selectSelonTest = "Select t.libelle,s.nbQuestionsATirer, s.idTheme  from Section_Test s"
 			+ " join Theme t on t.idTheme = s.idTheme"
 			+ " where s.idTest = ?;";
+	
 	public static ArrayList<Section> selectSelonTest(int idTest) throws SQLException {
 		ArrayList<Section> sections = new ArrayList<>();
 		

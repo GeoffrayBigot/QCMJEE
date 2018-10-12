@@ -16,7 +16,10 @@ import util.DBConnection;
 public class EpreuveDAOJdbcImpl {
 
 	private static final String insertEpreuve = "insert into Epreuve values(?,?,?,?,?,?,?,?);";
-	private static final String selectByIdUser = "select e.dateDedutValidite, e.dateFinValidite, e.tempsEcoule, e.etat,e.note_obtenue,e.niveau_obtenu, test.idTest, test.libelle, test.description,test.duree, test.seuil_haut, test.seuil_bas, u.idUtilisateur, u.nom, u.prenom, u.email, u.password, u.codeProfil, u.codePromo from EPREUVE e inner join Test test on e.idTest = test.idTest inner join Utilisateur u on u.idUtilisateur = e.idUtilisateur where e.idUtilisateur = ?;";
+	private static final String selectByIdUser = "select e.dateDedutValidite, e.dateFinValidite, e.tempsEcoule, e.etat,e.note_obtenue,e.niveau_obtenu, test.idTest, test.libelle, test.description,test.duree, test.seuil_haut, test.seuil_bas, u.idUtilisateur, u.nom, u.prenom, u.email, u.password, u.codeProfil, u.codePromo, e.idEpreuve from EPREUVE e inner join Test test on e.idTest = test.idTest inner join Utilisateur u on u.idUtilisateur = e.idUtilisateur where e.idUtilisateur = ?;";
+	private static final String updateNote = "update Epreuve set note_obtenue = ? where idEpreuve = ?;";
+	private static final String selectById = "select e.dateDedutValidite, e.dateFinValidite, e.tempsEcoule, e.etat,e.note_obtenue,e.niveau_obtenu, test.idTest, test.libelle, test.description,test.duree, test.seuil_haut, test.seuil_bas, u.idUtilisateur, u.nom, u.prenom, u.email, u.password, u.codeProfil, u.codePromo, e.idEpreuve from EPREUVE e inner join Test test on e.idTest = test.idTest inner join Utilisateur u on u.idUtilisateur = e.idUtilisateur where e.idEpreuve = ?;";
+
 	public static void insertEpreuve(Epreuve aEpreuve) throws SQLException {
 		Connection cnx = null;
 		PreparedStatement  stmt = null;
@@ -97,7 +100,7 @@ public class EpreuveDAOJdbcImpl {
 					default:
 						break;
 					}
-			 vListeEpreuves.add(new Epreuve(rs.getDate(1),rs.getDate(2),new Test(rs.getInt(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12)),new Utilisateur(rs.getInt(13),rs.getString(14),rs.getString(15),rs.getString(16),rs.getString(17),rs.getInt(18), rs.getString(19)),vNiveau,vEtatEpreuve));
+			 vListeEpreuves.add(new Epreuve(rs.getInt(20),rs.getDate(1),rs.getDate(2),new Test(rs.getInt(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12)),new Utilisateur(rs.getInt(13),rs.getString(14),rs.getString(15),rs.getString(16),rs.getString(17),rs.getInt(18), rs.getString(19)),vNiveau,vEtatEpreuve, rs.getInt(5)));
 			}
 		}catch (SQLException e) {
 			throw new SQLException("probleme UtilisateurDAO methode selectById "+e.getMessage());
@@ -110,6 +113,93 @@ public class EpreuveDAOJdbcImpl {
 		}
 		return vListeEpreuves;
 	}
+	public static ArrayList<Epreuve> selectbyId(Epreuve epreuve) throws SQLException {
+		ArrayList<Epreuve> vListeEpreuves= new ArrayList<Epreuve>();
+		
+		Connection cnx = null;
+		ResultSet rs = null;
 	
+		try {
+			cnx = DBConnection.seConnecter();
+			PreparedStatement prep1 = cnx.prepareStatement(selectByIdUser); 
+			prep1.setInt(1, epreuve.getId());
+			rs= prep1.executeQuery();
+			//traitement du rs
+			NiveauAquisition vNiveau = NiveauAquisition.NA;
+			EtatEpreuve vEtatEpreuve = EtatEpreuve.EA;
+
+			while(rs.next()){
+				
+				switch (rs.getString(6)) {
+				case "NA":
+					 vNiveau =NiveauAquisition.NA;
+					break;
+				case "A":
+					 vNiveau =NiveauAquisition.A;
+						break;
+				case "ECA":
+					 vNiveau =NiveauAquisition.ECA;
+						break;
+
+				default:
+					break;
+				}
+					
+				switch (rs.getString(4)) {
+					case "T":
+						vEtatEpreuve =EtatEpreuve.T;
+						break;
+					case "EC":
+						vEtatEpreuve =EtatEpreuve.EC;
+							break;
+					case "EA":
+						vEtatEpreuve =EtatEpreuve.EA;
+							break;
+
+					default:
+						break;
+					}
+			 vListeEpreuves.add(new Epreuve(rs.getInt(20),rs.getDate(1),rs.getDate(2),new Test(rs.getInt(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getInt(11), rs.getInt(12)),new Utilisateur(rs.getInt(13),rs.getString(14),rs.getString(15),rs.getString(16),rs.getString(17),rs.getInt(18), rs.getString(19)),vNiveau,vEtatEpreuve, rs.getInt(5)));
+			}
+		}catch (SQLException e) {
+			throw new SQLException("probleme UtilisateurDAO methode selectById "+e.getMessage());
+		} finally {
+			try {
+				cnx.close();
+			} catch (SQLException e) {
+				throw new SQLException("probleme UtilisateurDAO fermeture connexion"+e.getMessage());
+			}
+		}
+		return vListeEpreuves;
+	}
+	public static void updateNote(Epreuve epreuve) throws SQLException {
+		Connection cnx = null;
+		PreparedStatement  stmt = null;
+
+		try {
+			cnx = DBConnection.seConnecter();
+			stmt= cnx.prepareStatement(updateNote); 
+			
+			
+	
+			stmt.setInt(1, epreuve.getNote());
+			stmt.setInt(2, epreuve.getId());
+			
+
+			stmt.execute();
+			System.out.println("Modification réalisée avec succès");
+			
+		}catch (SQLException e) {
+			throw new SQLException("probleme EpreuveDAO methode updateNote"+e.getMessage());
+		} finally {
+			try {
+				cnx.close();
+			} catch (SQLException e) {
+				throw new SQLException("probleme Epreuve fermeture connexion"+e.getMessage());
+			}
+			
+		}
+
+	}
 	
 }
