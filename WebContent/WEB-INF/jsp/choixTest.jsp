@@ -1,4 +1,3 @@
-
 <%
 	String pageTitle = "Choix du test";
 %>
@@ -30,6 +29,7 @@
 				<th scope="col">Libelle du test</th>
 				<th scope="col">Description du test</th>
 				<th scope="col">Duree du test</th>
+				<th scope="col">Action</th>
 			</tr>
 		<tbody>
 			<c:forEach items="${listEpreuve}" var="e">
@@ -38,20 +38,16 @@
 					<td><c:out value="${e.test.nom}"></c:out></td>
 					<td><c:out value="${e.test.description}"></c:out></td>
 					<td><c:out value="${e.test.duree} Minutes"></c:out></td>
+					<c:if test="${e.etatEpreuve == 'EA'}">
+						<td><a class="btn btn-info" href="passageTest?idEpreuve=<c:out value='${e.id}'></c:out>">
+						Commencer</a></td></c:if>
+						
+					<c:if test="${e.etatEpreuve == 'EC'}">
+					<td><a href="passageTest" " class="btn btn-info">Reprendre</a></td></c:if>
+					<c:if test="${e.etatEpreuve == 'T'}">
+					<td><a href="passageTest"  class="btn btn-info">Aller aux resultats</a></td></c:if>
 				</tr>
-			</c:forEach>
-			<tr class="EC d-none">
-					<th scope="row">EC</th>
-					<td>Test Symfony CDI</td>
-					<td>Premier test de Symfony CDI</td>
-					<td>90 Minutes</td>
-				</tr>
-				<tr class="T d-none">
-					<th scope="row">T </th>
-					<td>Test Symfony CDI</td>
-					<td>Premier test de Symfony CDI</td>
-					<td>90 Minutes</td>
-				</tr>
+			</c:forEach>   
 		</tbody>
 		</thead>
 	</table>
