@@ -111,12 +111,13 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form>
+					<form methode="post">
 						<div class="form-group">
-							<label for="titreQuestion">Titre de la question</label> <input
-								type="text" class="form-control" id="titreQuestion"
+							<label for="titreQuestion">Titre de la question</label> 
+							<input
+								type="text" class="form-control" name="titreQuestion"
 								placeholder="Question ?">
-						</div>
+						</div>						
 
 						<div class="form-group">
 							<label for="typeQuestion">Type de question</label> 
@@ -124,37 +125,74 @@
 								<option disabled selected></option>
 								<option value="typeRadio">Type Radio</option>
 								<option value="typeCheckbox">Type Checkbox</option>
-								<option value="typeText">Type Text</option>
 							</select>
 						</div>
 						<div id="accordion">
-							<div class="collapse" id="typeRadio" data-parent="#accordion">
-								<div class="card card-body">
-									<div class="form-check">
-										<input class="form-check-input" type="radio"
-											name="exampleRadios" id="exampleRadios2" value="option2">
-										<label class="form-check-label" for="exampleRadios2">
-											Type Radio </label>
-									</div>
-								</div>
-							</div>
-							<div class="collapse" id="typeCheckbox" data-parent="#accordion">
-								<div class="card card-body">									
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value=""
-											id="defaultCheck1"> <label class="form-check-label"
-											for="defaultCheck1"> Type Checkbox</label>
-									</div>
-								</div>
-							</div>
-							<div class="collapse" id="typeText" data-parent="#accordion">
-								<div class="card card-body">
-									<p>typeText</p>
-								</div>
-							</div>
+													
 						</div>						
-						<button type="submit" class="btn btn-primary">Submit</button>
+						<button type="submit" class="btn btn-primary">Valider</button>
 					</form>
+					
+					<div id="disabled" class="d-none">
+						<div class="" id="typeRadio">														
+							<div class="card card-body">								
+								<input class="form-control rep-nb-radio" type="number" step="1" value="2" min="2" max="10">
+								<div class="row container-rep-radio">
+									<div class="rep-radio input-group col-6 mb-1 mt-1">
+										<div class="input-group-prepend">
+											<span class="input-group-text">1</span>
+										</div>
+										<input type="text" class="form-control" name="rep-1">
+										<div class="input-group-prepend">
+											<div class="input-group-text">
+												<input type="radio" value="1" name="rep-valide-radio">
+											</div>
+										</div>
+									</div>
+									<div class="rep-radio input-group col-6 mb-1 mt-1">
+										<div class="input-group-prepend">
+											<span class="input-group-text">2</span>
+										</div>
+										<input type="text" class="form-control" name="rep-2">
+										<div class="input-group-prepend">
+											<div class="input-group-text">
+												<input type="radio" value="2" name="rep-valide-radio">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>	
+						<div class="" id="typeCheckbox">
+							<div class="card card-body">									
+								<input class="form-control rep-nb-checkbox" type="number" step="1" value="2" min="2" max="10">
+								<div class="row container-rep-checkbox">
+									<div class="rep-checkbox input-group col-6 mb-1 mt-1">
+										<div class="input-group-prepend">
+											<span class="input-group-text">1</span>
+										</div>
+										<input type="text" class="form-control" name="rep-1">
+										<div class="input-group-prepend">
+											<div class="input-group-text">
+												<input type="checkbox" value="1" name="rep-valide-1">
+											</div>
+										</div>
+									</div>
+									<div class="rep-checkbox input-group col-6 mb-1 mt-1">
+										<div class="input-group-prepend">
+											<span class="input-group-text">2</span>
+										</div>
+										<input type="text" class="form-control" name="rep-2">
+										<div class="input-group-prepend">
+											<div class="input-group-text">
+												<input type="checkbox" value="2" name="rep-valide-2">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 
 				</div>
 				<div class="modal-footer">
