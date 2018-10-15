@@ -20,6 +20,9 @@ public class QuestionDAOJdbcImpl {
 	private static final String insertProposition = "insert into Proposition(enonce,estBonne,idQuestion) values (?,?,?)";
 	private static final String selectQuestionByIdTheme  ="select idQuestion, enonce, media, points, q.idTheme, t.libelle from Question q"
 			+ " join Theme t on t.idTheme = q.idTheme where t.idTheme=?";
+	
+	private static final String selectQuestionById ="select idQuestion, enonce, media, points, q.idTheme, t.libelle from Question q"
+			+ " join Theme t on t.idTheme = q.idTheme where t.idTheme=q.idTheme and q.idQuestion=";
 	public ArrayList<Question> selectAll() throws SQLException {
 		Question uneQuestion = null;
 		ArrayList<Question> questions = new ArrayList<>();
@@ -120,4 +123,32 @@ public class QuestionDAOJdbcImpl {
 			}
 		}
 		return questions;
-	}}
+	}
+	public ArrayList<Question> selectById(int idQuestion) throws SQLException {
+		Question uneQuestion = null;
+		ArrayList<Question> questions = new ArrayList<>();
+		Connection cnx = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			cnx = DBConnection.seConnecter();
+			stmt = cnx.prepareStatement(selectQuestionById);
+			stmt.setInt(1, idQuestion);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				uneQuestion = new Question(new Theme(rs.getInt(5), rs.getString(6)), rs.getInt(1), rs.getString(2), rs.getBytes(3), rs.getInt(4));
+				questions.add(uneQuestion);
+			}
+		} catch (SQLException e) {
+			throw new SQLException("probleme QuestionDAO methode lister" + e.getMessage());
+		} finally {
+			try {
+				stmt.close();
+				cnx.close();
+			} catch (SQLException e) {
+				throw new SQLException("probleme QuestionDAO fermeture connexion" + e.getMessage());
+			}
+		}
+		return questions;
+	}
+}

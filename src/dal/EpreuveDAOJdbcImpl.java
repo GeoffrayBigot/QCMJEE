@@ -38,7 +38,7 @@ public class EpreuveDAOJdbcImpl {
 			stmt.setString(6, aEpreuve.getNiveauAcquisition().name());
 			stmt.setInt(7, aEpreuve.getTest().getIdTest());
 			stmt.setInt(8, aEpreuve.getUser().getIdUser());
-
+			
 			stmt.execute();
 			System.out.println("Insertion réalisée avec succès");
 			
@@ -224,7 +224,6 @@ public class EpreuveDAOJdbcImpl {
 			} catch (SQLException e) {
 				throw new SQLException("probleme Epreuve fermeture connexion"+e.getMessage());
 			}
-			
 		}
 
 	}
