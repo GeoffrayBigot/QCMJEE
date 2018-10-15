@@ -11,8 +11,8 @@ public class QuestionEpreuve extends Question {
 		marquee = false;
 	}
 	
-	public QuestionEpreuve(int idTheme, String enonce, byte[] image, int point) {
-		super(idTheme,enonce,image,point);
+	public QuestionEpreuve(int idQuestion, int idTheme, String enonce, byte[] image, int point) {
+		super(idQuestion,idTheme,enonce,image,point);
 		marquee = false;
 	}
 
