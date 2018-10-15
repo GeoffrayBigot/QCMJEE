@@ -1,6 +1,7 @@
 package Servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -35,9 +36,14 @@ public class choixTestServlet extends HttpServlet {
 		HttpSession session = request.getSession();	
 		Utilisateur userCo = (Utilisateur) session.getAttribute("isConnected");
 		
-		ArrayList<Epreuve> epreuves = gestionEpreuve.selectEpreuvesByIdUtilisateur(userCo.getIdUser());
-		session.setAttribute("listEpreuve", epreuves);
-		
+		ArrayList<Epreuve> epreuves;
+		try {
+			epreuves = gestionEpreuve.selectEpreuvesByIdUtilisateur(userCo.getIdUser());
+			session.setAttribute("listEpreuve", epreuves);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);	
 	}
 

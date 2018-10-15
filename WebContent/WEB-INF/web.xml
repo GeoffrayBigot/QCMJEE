@@ -60,4 +60,15 @@
     <servlet-name>gestionQuestionServlet</servlet-name>
     <url-pattern>/gestionQuestion</url-pattern>
   </servlet-mapping>
+  
+    <servlet>
+    <description></description>
+    <display-name>passageTestServlet</display-name>
+    <servlet-name>passageTestServlet</servlet-name>
+    <servlet-class>Servlet.passageTestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>passageTestServlet</servlet-name>
+    <url-pattern>/passageTest</url-pattern>
+  </servlet-mapping>
 </web-app>

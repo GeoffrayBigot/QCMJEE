@@ -126,5 +126,13 @@ public class Epreuve {
 	public int getId() {
 		return id;
 	}
+	@Override
+	public String toString() {
+		return "Epreuve [debutValidite=" + debutValidite + ", finValidite=" + finValidite + ", tempsEcoule="
+				+ tempsEcoule + ", etatEpreuve=" + etatEpreuve + ", note=" + note + ", user=" + user + ", test=" + test
+				+ ", niveauAcquisition=" + niveauAcquisition + ", questions=" + questions + ", id=" + id + "]";
+	}
 
+	
 }
+
