@@ -60,10 +60,20 @@ public class Question {
 		this.image = image;
 		this.point = point;
 	}
+	
+	public Question(int idQuestion,int idTheme, String enonce, byte[] image, int point) {
+		super();
+		this.idQuestion = idQuestion;
+		this.theme = new Theme();
+		this.theme.setIdTheme(idTheme);
+		this.enonce = enonce;
+		this.image = image;
+		this.point = point;
+	}
 	@Override
 	public String toString() {
 		return "Question [idQuestion=" + idQuestion + ", enonce=" + enonce + ", image=" + image
-				+ ", point=" + point +" ,theme=" + theme+"]";
+				+ ", point=" + point +" ,theme=" + theme+"]\n";
 	}
 	
 }
