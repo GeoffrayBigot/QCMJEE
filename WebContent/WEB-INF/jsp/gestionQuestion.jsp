@@ -115,16 +115,16 @@
 						<div class="form-row">
 							 <div class="form-group col-12 col-sm-8">
 								<label for="titreQuestion">Titre de la question</label> 
-								<input	type="text" class="form-control" id="titreQuestion" name="titreQ" placeholder="Question ?">
+								<input	type="text" class="form-control" id="titreQuestion" name="titreQ" placeholder="Question ?" required>
 							</div>
 							<div class="form-group col-12 col-sm-4">
 								<label for="nbPoints">Nombre de point</label> 
-								<input	type="number" class="form-control" id="nbPoints" name="nbP" step="1" value="1" min="1">
+								<input	type="number" class="form-control" id="nbPoints" name="nbP" step="1" value="1" min="1" required>
 							</div>
 							
 							<div class="form-group col-12 col-sm-6">
 								<label for="typeQuestion">Type de question</label> 
-								<select class="form-control" name="typeQ" id="typeQuestion">
+								<select class="form-control" name="typeQ" id="typeQuestion" required>
 									<option disabled selected></option>
 									<option value="typeRadio">Type Radio</option>
 									<option value="typeCheckbox">Type Checkbox</option>
@@ -133,7 +133,7 @@
 							
 							<div class="form-group col-6">
 								<label for="typeTheme">Théme</label>
-								<select class="form-control" name="theme" id="typeTheme">
+								<select class="form-control" name="theme" id="typeTheme" required>
 									<option disabled selected></option>
 									<c:forEach items="${listTheme}" var="t">
 										<option value="${t.idTheme}">${t.libelle}</option>
@@ -157,10 +157,10 @@
 										<div class="input-group-prepend">
 											<span class="input-group-text">1</span>
 										</div>
-										<input type="text" class="form-control" name="rep-1">
+										<input type="text" class="form-control" name="rep-1" required>
 										<div class="input-group-prepend">
 											<div class="input-group-text">
-												<input type="radio" value="1" name="rep-valide-radio">
+												<input type="radio" value="1" name="rep-valide-radio" required>
 											</div>
 										</div>
 									</div>
@@ -168,10 +168,10 @@
 										<div class="input-group-prepend">
 											<span class="input-group-text">2</span>
 										</div>
-										<input type="text" class="form-control" name="rep-2">
+										<input type="text" class="form-control" name="rep-2" required>
 										<div class="input-group-prepend">
 											<div class="input-group-text">
-												<input type="radio" value="2" name="rep-valide-radio">
+												<input type="radio" value="2" name="rep-valide-radio" required>
 											</div>
 										</div>
 									</div>
@@ -186,7 +186,7 @@
 										<div class="input-group-prepend">
 											<span class="input-group-text">1</span>
 										</div>
-										<input type="text" class="form-control" name="rep-1">
+										<input type="text" class="form-control" name="rep-1" required>
 										<div class="input-group-prepend">
 											<div class="input-group-text">
 												<input type="checkbox" value="1" name="rep-valide-1">
@@ -197,7 +197,7 @@
 										<div class="input-group-prepend">
 											<span class="input-group-text">2</span>
 										</div>
-										<input type="text" class="form-control" name="rep-2">
+										<input type="text" class="form-control" name="rep-2" required>
 										<div class="input-group-prepend">
 											<div class="input-group-text">
 												<input type="checkbox" value="2" name="rep-valide-2">

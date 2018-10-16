@@ -14,6 +14,7 @@ import bll.GestionQuestions;
 import bo.Proposition;
 import bo.Question;
 import bo.Theme;
+import bo.Utilisateur;
 
 /**
  * Servlet implementation class gestionQuestionServlet
@@ -39,6 +40,21 @@ public class gestionQuestionServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
+		
+		Utilisateur userConnected = (Utilisateur) session.getAttribute("isConnected");
+		if (userConnected != null) {
+			
+			actualiseQuestion(session);
+			this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+			
+		} else {
+			response.sendRedirect("http://localhost:8080/QCMJEE/accueil");
+		}
+		
+		
+	}
+
+	public void actualiseQuestion(HttpSession session){
 
 		try {
 			ArrayList<Question> questions = gestionQuestions.selectAllQuestion();
@@ -51,10 +67,8 @@ public class gestionQuestionServlet extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 	}
-
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -115,8 +129,12 @@ public class gestionQuestionServlet extends HttpServlet {
 		} catch (SQLException e) {
 			e.getMessage();
 		}
-
-		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+		
+		HttpSession session = request.getSession();
+		
+		actualiseQuestion(session);
+		
+		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);		
 	}
 
 }

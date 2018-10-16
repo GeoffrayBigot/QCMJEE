@@ -51,10 +51,10 @@ $( document ).ready(function() {
 								"<div class='input-group-prepend'> " +
 									"<span class='input-group-text'>"+ nb_rep +"</span>" +
 								"</div>" +
-								"<input type='text' class='form-control' name='rep-"+ nb_rep +"'>" +
+								"<input type='text' class='form-control' name='rep-"+ nb_rep +"' required>" +
 							"<div class='input-group-prepend'>" +
 								"<div class='input-group-text'>" +
-									"<input type='radio' value="+ nb_rep +" name='rep-valide-radio'>" +
+									"<input type='radio' value="+ nb_rep +" name='rep-valide-radio' required>" +
 								"</div>" +
 							"</div>" +
 						"</div>"
@@ -74,7 +74,7 @@ $( document ).ready(function() {
 								"<div class='input-group-prepend'> " +
 									"<span class='input-group-text'>"+ nb_rep +"</span>" +
 								"</div>" +
-								"<input type='text' class='form-control' name='rep-"+ nb_rep +"'>" +
+								"<input type='text' class='form-control' name='rep-"+ nb_rep +"' required>" +
 							"<div class='input-group-prepend'>" +
 								"<div class='input-group-text'>" +
 									"<input type='checkbox' value="+ nb_rep +" name='rep-valide-"+ nb_rep +"'>" +
