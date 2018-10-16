@@ -90,10 +90,10 @@ public class connexionServlet extends HttpServlet {
 			response.sendRedirect("http://localhost:8080/QCMJEE/accueil");
 			break;
 		case "Responsable":
-			response.sendRedirect("http://localhost:8080/QCMJEE/gestionQuestion");
+			response.sendRedirect("http://localhost:8080/QCMJEE/accueil");
 			break;
 		case "Etudiant":
-			response.sendRedirect("http://localhost:8080/QCMJEE/choixTest");
+			response.sendRedirect("http://localhost:8080/QCMJEE/accueil");
 			break;
 		default:
 			response.sendRedirect("http://localhost:8080/QCMJEE/accueil");

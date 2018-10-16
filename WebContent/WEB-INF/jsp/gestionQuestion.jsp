@@ -119,7 +119,7 @@
 							</div>
 							<div class="form-group col-12 col-sm-4">
 								<label for="nbPoints">Nombre de point</label> 
-								<input	type="number" class="form-control" id="nbPoints" name="nbP" step="1" value="1" min="1" required>
+								<input	type="number" class="form-control" id="nbPoints" name="nbP" step="1" value="1" min="1" max="5" required>
 							</div>
 							
 							<div class="form-group col-12 col-sm-6">
