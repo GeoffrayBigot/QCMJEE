@@ -5,12 +5,16 @@ import java.util.ArrayList;
 
 import bo.Proposition;
 import bo.Question;
+import bo.QuestionEpreuve;
+import bo.ReponseEpreuve;
 import dal.PropositionDAOjdbcImpl;
 import dal.QuestionDAOJdbcImpl;
+import dal.QuestionEpreuveDAOJdbcImpl;
 
 public class GestionQuestions {
 	
 	private static QuestionDAOJdbcImpl questionsDAO = new QuestionDAOJdbcImpl();
+	private static QuestionEpreuveDAOJdbcImpl questionEpreuveDAO = new QuestionEpreuveDAOJdbcImpl();
 	private static PropositionDAOjdbcImpl propositionDAO = new PropositionDAOjdbcImpl();
 	
 	public ArrayList<Question> selectAllQuestion() throws SQLException {
@@ -29,7 +33,6 @@ public class GestionQuestions {
 		}
 	}
 	
-
 	public ArrayList<Proposition> selectAllReponse() throws SQLException {
 		try {
 			return propositionDAO.selectAllReponse();	
@@ -45,6 +48,16 @@ public class GestionQuestions {
 			throw new SQLException("probleme GestionQuestion fermeture connexion " + e.getMessage());
 		}
 	}
+	
+	public void ajouterQuestionEpreuve(QuestionEpreuve vQuestionEpreuve, int idEpreuve,int ordre, ArrayList<ReponseEpreuve> reponses_epreuves) throws SQLException {
+		try {
+			questionEpreuveDAO.insertQuestionEpreuve(vQuestionEpreuve, idEpreuve, ordre, reponses_epreuves);
+		} catch (SQLException e) {
+			throw new SQLException("probleme GestionQuestion fermeture connexion " + e.getMessage());
+		}
+	}
+	
+	
 	public ArrayList<Question> selectQuestionsByIdTheme(int idTheme) throws SQLException {
 		try {
 			return questionsDAO.selectQuestionByIdTheme(idTheme);	
@@ -52,4 +65,5 @@ public class GestionQuestions {
 			throw new SQLException("probleme GestionQuestion fermeture connexion" + e.getMessage());
 		}
 	}
+	
 }

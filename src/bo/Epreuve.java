@@ -129,8 +129,8 @@ public class Epreuve {
 	@Override
 	public String toString() {
 		return "Epreuve [debutValidite=" + debutValidite + ", finValidite=" + finValidite + ", tempsEcoule="
-				+ tempsEcoule + ", etatEpreuve=" + etatEpreuve + ", note=" + note + ", user=" + user + ", test=" + test
-				+ ", niveauAcquisition=" + niveauAcquisition + ", questions=" + questions + ", id=" + id + "]";
+				+ tempsEcoule + ", etatEpreuve=" + etatEpreuve + ", note=" + note + ",\n user=" + user + ",\n test=" + test
+				+ ", niveauAcquisition=" + niveauAcquisition + ",\n questions=" + questions + ",\n id=" + id + "]";
 	}
 
 	

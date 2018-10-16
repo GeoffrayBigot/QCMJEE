@@ -50,7 +50,7 @@ public class Proposition {
 		super();
 		this.libelle = libelle;
 		this.estCorrecte = estCorrecte;
-	}
+	} 
 	
 	@Override
 	public String toString() {

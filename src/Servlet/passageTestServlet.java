@@ -10,15 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.sun.xml.internal.bind.v2.model.util.ArrayInfoUtil;
-
 import bll.GestionEpreuve;
 import bll.GestionQuestions;
 import bo.Epreuve;
 import bo.Proposition;
 import bo.Question;
+import bo.QuestionEpreuve;
+import bo.ReponseEpreuve;
 import bo.Section;
-import bo.Theme;
 import bo.Utilisateur;
 
 /**
@@ -49,7 +48,7 @@ public class passageTestServlet extends HttpServlet {
 			Epreuve epr = gestionEpreuve.selectById(Integer.parseInt(request.getParameter("idEpreuve")));
 			ArrayList<Section> sections = gestionEpreuve.selectSelonTest(epr.getTest().getIdTest());
 			addSectionToepreuve(sections, epr);
-			generationQuestion(epr);
+			generationQuestions(epr);
 			System.out.println(epr);
 		} catch (NumberFormatException e) {
 			e.getMessage();
@@ -74,11 +73,14 @@ public class passageTestServlet extends HttpServlet {
 			epr.getTest().ajouter(s.getTheme(), s.getNbQuestionsAttendues());
 		}
 	}
-	
-	public void generationQuestion(Epreuve epr) throws SQLException {
+
+	public void generationQuestions(Epreuve epr) throws SQLException {
 		ArrayList<Question> questions = null;
 		ArrayList<Proposition> propositions = null;
 		int ind = 0;
+		int ordre = 1;
+		QuestionEpreuve questionEpreuve;
+		ArrayList<ReponseEpreuve> vReponsesEpreuves = new ArrayList<>();
 		for (Section s : epr.getTest().getSections()) {
 			if (s.getNbQuestionsAttendues() >= ind) {
 				questions = gestionQuest.selectQuestionsByIdTheme(s.getTheme().getIdTheme());
@@ -88,6 +90,18 @@ public class passageTestServlet extends HttpServlet {
 				ind++;
 			} else
 				break;
+		}
+		for (Question q : questions) {
+			questionEpreuve = new QuestionEpreuve(q.getIdQuestion(), q.getTheme().getIdTheme(), q.getEnonce(), null,
+					q.getPoint());
+			epr.ajouter(questionEpreuve);
+			propositions = gestionQuest.selectPropositionByIdQuestion(q.getIdQuestion());
+			for (Proposition p : propositions) {
+				vReponsesEpreuves
+						.add(new ReponseEpreuve(p.getIdReponse(), p.getLibelle(), p.isEstCorrecte(), epr.getId(), q.getIdQuestion()));
+			}
+			gestionQuest.ajouterQuestionEpreuve(questionEpreuve, epr.getId(), ordre, vReponsesEpreuves);
+			ordre++;
 		}
 	}
 

@@ -34,7 +34,7 @@ public class QuestionEpreuveDAOJdbcImpl {
 			if(ligne == 1 ) {
 				rs = stmt.getGeneratedKeys();		
 				if(rs.next()) {
-					insertReponseEpreuve(reponses_epreuves);
+					insertReponseEpreuve(reponses_epreuves,vQuestionEpreuve.getIdQuestion());
 				}
 			}
 			
@@ -44,17 +44,19 @@ public class QuestionEpreuveDAOJdbcImpl {
 		
 	}
 
-	private static void insertReponseEpreuve(ArrayList<ReponseEpreuve> reponses_epreuve) throws SQLException {
+	private static void insertReponseEpreuve(ArrayList<ReponseEpreuve> reponses_epreuve, int idQuestion) throws SQLException {
 		Connection cnx = null;
 		PreparedStatement stmt = null;
 		try {
 			cnx = DBConnection.seConnecter();
 				for (ReponseEpreuve p : reponses_epreuve) {
-					stmt = cnx.prepareStatement(insertReponseEpreuve);
-					stmt.setInt(1, p.getIdReponse());
-					stmt.setInt(2, p.getIdQuestion());
-					stmt.setInt(3, p.getIdEpreuve());
-					stmt.execute();
+					if(p.getIdQuestion()==idQuestion){
+						stmt = cnx.prepareStatement(insertReponseEpreuve);
+						stmt.setInt(1, p.getIdReponse());
+						stmt.setInt(2, p.getIdQuestion());
+						stmt.setInt(3, p.getIdEpreuve());
+						stmt.execute();
+					}
 				}			
 			System.out.println("Insertion ReponseEpreuve Succès !");
 			
