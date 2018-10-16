@@ -40,7 +40,7 @@ public class ThemeDAOJdbcImpl {
 		return vTheme;
 	}
 	
-	public static ArrayList<Theme> selectAll() throws SQLException {
+	public ArrayList<Theme> selectAll() throws SQLException {
 		ArrayList<Theme> themes = new ArrayList<>();
 		Connection cnx = null;
 		ResultSet rs = null;

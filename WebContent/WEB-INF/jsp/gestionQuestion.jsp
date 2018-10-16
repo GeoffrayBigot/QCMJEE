@@ -111,22 +111,37 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form methode="post">
-						<div class="form-group">
-							<label for="titreQuestion">Titre de la question</label> 
-							<input
-								type="text" class="form-control" name="titreQuestion"
-								placeholder="Question ?">
-						</div>						
-
-						<div class="form-group">
-							<label for="typeQuestion">Type de question</label> 
-							<select class="form-control" id="typeQuestion">
-								<option disabled selected></option>
-								<option value="typeRadio">Type Radio</option>
-								<option value="typeCheckbox">Type Checkbox</option>
-							</select>
+					<form method="post" action="gestionQuestion">
+						<div class="form-row">
+							 <div class="form-group col-12 col-sm-8">
+								<label for="titreQuestion">Titre de la question</label> 
+								<input	type="text" class="form-control" id="titreQuestion" name="titreQ" placeholder="Question ?">
+							</div>
+							<div class="form-group col-12 col-sm-4">
+								<label for="nbPoints">Nombre de point</label> 
+								<input	type="number" class="form-control" id="nbPoints" name="nbP" step="1" value="1" min="1">
+							</div>
+							
+							<div class="form-group col-12 col-sm-6">
+								<label for="typeQuestion">Type de question</label> 
+								<select class="form-control" name="typeQ" id="typeQuestion">
+									<option disabled selected></option>
+									<option value="typeRadio">Type Radio</option>
+									<option value="typeCheckbox">Type Checkbox</option>
+								</select>
+							</div>
+							
+							<div class="form-group col-6">
+								<label for="typeTheme">Théme</label>
+								<select class="form-control" name="theme" id="typeTheme">
+									<option disabled selected></option>
+									<c:forEach items="${listTheme}" var="t">
+										<option value="${t.idTheme}">${t.libelle}</option>
+									</c:forEach>							
+								</select>
+							</div>						
 						</div>
+						
 						<div id="accordion">
 													
 						</div>						
@@ -136,7 +151,7 @@
 					<div id="disabled" class="d-none">
 						<div class="" id="typeRadio">														
 							<div class="card card-body">								
-								<input class="form-control rep-nb-radio" type="number" step="1" value="2" min="2" max="10">
+								<input class="form-control rep-nb-radio" name="nbR" type="number" step="1" value="2" min="2" max="10">
 								<div class="row container-rep-radio">
 									<div class="rep-radio input-group col-6 mb-1 mt-1">
 										<div class="input-group-prepend">
@@ -165,7 +180,7 @@
 						</div>	
 						<div class="" id="typeCheckbox">
 							<div class="card card-body">									
-								<input class="form-control rep-nb-checkbox" type="number" step="1" value="2" min="2" max="10">
+								<input class="form-control rep-nb-checkbox" name="nbR" type="number" step="1" value="2" min="2" max="10">
 								<div class="row container-rep-checkbox">
 									<div class="rep-checkbox input-group col-6 mb-1 mt-1">
 										<div class="input-group-prepend">
