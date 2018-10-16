@@ -1,3 +1,4 @@
+
 <%
 	String pageTitle = "Choix du test";
 %>
@@ -11,11 +12,11 @@
 	<div class="container-fluid mt-3 mb-3">
 		<div class="row">
 			<div class="col-6">
-				<h1>Epreuves : </h1>
+				<h1>Epreuves :</h1>
 			</div>
 			<div class="col-6 text-right">
 				<select class="form-control" id="choixEpreuve">
-					<option value="EA" selected >EA</option>
+					<option value="EA" selected>EA</option>
 					<option value="EC">EC</option>
 					<option value="T ">T</option>
 				</select>
@@ -39,18 +40,86 @@
 					<td><c:out value="${e.test.description}"></c:out></td>
 					<td><c:out value="${e.test.duree} Minutes"></c:out></td>
 					<c:if test="${e.etatEpreuve == 'EA'}">
-						<td><a class="btn btn-info" href="passageTest?idEpreuve=<c:out value='${e.id}'></c:out>">
-						Commencer</a></td></c:if>
-						
+						<td>
+							<button type="button" class="btn btn-info" data-toggle="modal"
+								data-target="#modal-EA--<c:out value="${e.id}"></c:out>">Commencer</button>
+						</td>
+					</c:if>
 					<c:if test="${e.etatEpreuve == 'EC'}">
-					<td><a href="passageTest" " class="btn btn-info">Reprendre</a></td></c:if>
+						<td>
+							<button type="button" class="btn btn-info" data-toggle="modal"
+								data-target="#modal-EC-<c:out value="${e.id}"></c:out>">reprendre</button>
+						</td>
+					</c:if>
 					<c:if test="${e.etatEpreuve == 'T'}">
-					<td><a href="passageTest"  class="btn btn-info">Aller aux resultats</a></td></c:if>
+						<td><a href="passageTest" class="btn btn-info">Aller aux
+								resultats</a></td>
+					</c:if>
 				</tr>
-			</c:forEach>   
+
+			</c:forEach>
 		</tbody>
 		</thead>
 	</table>
+	<!-- Button trigger modal -->
 
+	<c:forEach items="${listEpreuve}" var="e">
+		<!-- Modal -->
+		<c:if test="${e.etatEpreuve == 'EA'}">
+			<div class="modal fade" id="modal-EA--<c:out value="${e.id}"></c:out>" tabindex="-1" role="dialog"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">${e.test.nom}</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>					
+							<div class="modal-body">
+								<p>${e.test.description}</p>
+								<p>Le test va durer ${e.test.duree} minutes</p>
+								<p>êtes vous sûr de vouloir commencer ce test ?</p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-dismiss="modal">Non</button>
+								<a class="btn btn-info"
+									href="passageTest?idEpreuve=<c:out value='${e.id}'></c:out>">
+									Oui</a>
+							</div>
+					</div>
+				</div>
+			</div>
+		</c:if>
+		
+		<c:if test="${e.etatEpreuve == 'EC'}">
+			<div class="modal fade" id="modal-EC-<c:out value="${e.id}"></c:out>" tabindex="-1" role="dialog"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">${e.test.nom}</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>				
+							<div class="modal-body">
+								<p>${e.test.description}</p>
+								<p>vous avez passé ${e.tempsEcoule} minutes</p>
+								<p>êtes vous sûr de vouloir reprendre ce test ?</p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-dismiss="modal">Non</button>
+								<a href="passageTest" " class="btn btn-info">Reprendre</a>
+							</div>						
+					</div>
+				</div>
+			</div>
+		</c:if>
+	</c:forEach>
 </body>
 <jsp:include page="/WEB-INF/jsp/footer.jsp"></jsp:include>

@@ -63,7 +63,6 @@ public class QuestionEpreuveDAOJdbcImpl {
 		} catch (SQLException e) {
 			throw new SQLException("probleme QuestionEpreuve fermeture connexion " + e.getMessage());
 		}
-		
 	}
 	
 	
