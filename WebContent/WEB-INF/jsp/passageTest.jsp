@@ -7,7 +7,7 @@ String pageTitle = "accueil";
 <body>
     <% if(session.getAttribute("isConnected") != null){ %>
 	<p>Bonjour 	<%=session.getAttribute("userNom")%> <%=session.getAttribute("userPrenom")%></p>	
-	<p>tu es le GREAT <%=session.getAttribute("userProfil")%> <%=session.getAttribute("userNom")%> </p>	
+	<p> <%=session.getAttribute("userProfil")%> <%=session.getAttribute("userNom")%> </p>	
 	<% } %>
     
 </body>
