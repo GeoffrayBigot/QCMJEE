@@ -66,8 +66,12 @@
 	<c:forEach items="${listEpreuve}" var="e">
 		<!-- Modal -->
 		<c:if test="${e.etatEpreuve == 'EA'}">
-			<div class="modal fade" id="modal-EA--<c:out value="${e.id}"></c:out>" tabindex="-1" role="dialog"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal fade"
+				id="modal-EA--<c:out value="${e.id}"></c:out>"
+				data-duree="<c:out value="${e.test.duree}"></c:out>"
+				data-temps="<c:out value="${e.tempsEcoule}"></c:out>"
+				tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -76,27 +80,30 @@
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-						</div>					
-							<div class="modal-body">
-								<p>${e.test.description}</p>
-								<p>Le test va durer ${e.test.duree} minutes</p>
-								<p>êtes vous sûr de vouloir commencer ce test ?</p>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-dismiss="modal">Non</button>
-								<a class="btn btn-info"
-									href="passageTest?idEpreuve=<c:out value='${e.id}'></c:out>">
-									Oui</a>
-							</div>
+						</div>
+						<div class="modal-body">
+							<p>${e.test.description}</p>
+							<p id="timer"></p>
+							<p>Le test va durer ${e.test.duree} minutes</p>
+							<p>êtes vous sûr de vouloir commencer ce test ?</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Non</button>
+							<a class="btn btn-info"
+								href="passageTest?idEpreuve=<c:out value='${e.id}'></c:out>">
+								Oui</a>
+						</div>
 					</div>
 				</div>
 			</div>
 		</c:if>
-		
+
 		<c:if test="${e.etatEpreuve == 'EC'}">
-			<div class="modal fade" id="modal-EC-<c:out value="${e.id}"></c:out>" tabindex="-1" role="dialog"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+			<div class="modal fade" id="modal-EC-<c:out value="${e.id}"></c:out>"
+				tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -105,17 +112,17 @@
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-						</div>				
-							<div class="modal-body">
-								<p>${e.test.description}</p>
-								<p>vous avez passé ${e.tempsEcoule} minutes</p>
-								<p>êtes vous sûr de vouloir reprendre ce test ?</p>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-dismiss="modal">Non</button>
-								<a href="passageTest" " class="btn btn-info">Reprendre</a>
-							</div>						
+						</div>
+						<div class="modal-body">
+							<p>${e.test.description}</p>
+							<p>vous avez passé ${e.tempsEcoule} minutes</p>
+							<p>êtes vous sûr de vouloir reprendre ce test ?</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Non</button>
+							<a href="passageTest" " class="btn btn-info">Reprendre</a>
+						</div>
 					</div>
 				</div>
 			</div>

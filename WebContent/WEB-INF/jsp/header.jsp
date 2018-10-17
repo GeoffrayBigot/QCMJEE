@@ -16,22 +16,24 @@
   </button>
   <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
     <ul class="navbar-nav">
-      <li class="nav-item active">
+      <li class="nav-item acti_1ve">
         <a class="nav-link" href="<%=request.getContextPath() %>/accueil">Accueil</a>
       </li>    
     </ul>
     <% if(session.getAttribute("isConnected") != null) { %>
-	    <ul class="navbar-nav">
-	    <li class="nav-item dropdown">
-	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          <%=session.getAttribute("userNom")%> <%=session.getAttribute("userPrenom")%>
-	        </a>
-	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	          <a class="dropdown-item" href="#">Profil</a>
-	          <a class="dropdown-item" href="<%=request.getContextPath() %>/deconnexion">Deconnexion</a>
-	        </div>
-	      </li> 
-	    </ul>
+    	<div class="d-flex">
+	    	<p class="m-0 p-2 text-light">${isConnected.profil.libelle }</p>
+		    <ul class="navbar-nav">
+		    <li class="nav-item dropdown">
+		        <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		          <%=session.getAttribute("userNom")%> <%=session.getAttribute("userPrenom")%>
+		        </a>
+		        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+		          <a class="dropdown-item" href="<%=request.getContextPath() %>/deconnexion">Deconnexion</a>
+		        </div>
+		      </li> 
+		    </ul>
+    	</div>    	
 	<% } %>
   </div>
 </nav>
