@@ -15,6 +15,7 @@ public class GestionEpreuve {
 	private static EpreuveDAOJdbcImpl epreuvesDAO = new EpreuveDAOJdbcImpl();
 	private static SectionDAOJdbcImpl sectionDAO = new SectionDAOJdbcImpl();
 	private static QuestionEpreuveDAOJdbcImpl questionsEpreuvesDAO = new QuestionEpreuveDAOJdbcImpl();
+	
 	public Epreuve selectById(int idEpreuve) throws SQLException {
 		try {
 			return epreuvesDAO.selectbyId(idEpreuve);
@@ -47,5 +48,22 @@ public class GestionEpreuve {
 		}
 	}
 	
+	public void setEtat(Epreuve epreuve) throws SQLException {
+		try {
+			epreuvesDAO.updateEtatEpreuve(epreuve);
+		} catch (SQLException e) {
+			throw new SQLException("probleme GestionEpreuve methode select questions by epreuve" + e.getMessage());
 
+		}
+	}
+
+	public void setNote(Epreuve epreuve) throws SQLException {
+		try {
+			epreuvesDAO.updateNote(epreuve);
+		} catch (SQLException e) {
+			throw new SQLException("probleme GestionEpreuve methode select questions by epreuve" + e.getMessage());
+
+		}
+	}
+	
 }

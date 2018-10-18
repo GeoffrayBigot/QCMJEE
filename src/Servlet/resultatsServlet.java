@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import bll.GestionEpreuve;
 import bll.GestionQuestions;
 import bo.Epreuve;
+import bo.EtatEpreuve;
 import bo.Proposition;
 import bo.Question;
 
@@ -53,7 +54,7 @@ public class resultatsServlet extends HttpServlet {
 		HashMap<Integer, Integer> vNbRepsParQuestion= new HashMap<Integer, Integer>();
 		HttpSession session = request.getSession();
 		int nbRepsFormulaire=0;
-		Epreuve vEpreuve;
+		Epreuve vEpreuve = null;
 		int repEnCours = 0; 
 		//On recupere l'epreuve
 		try { 
@@ -117,8 +118,29 @@ public class resultatsServlet extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		vEpreuve.setEtatEpreuve(EtatEpreuve.T);
+		
+		for(int id : vQuestionBonne){
+			Question q;
+			try {
+				q = gestionQuestions.selectQuestionById(id);
+				vEpreuve.setNote(vEpreuve.getNote() +q.getPoint());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		try {
+			gestionEpreuve.setEtat(vEpreuve);
+			gestionEpreuve.setNote(vEpreuve);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		session.setAttribute("epreuve", vEpreuve);
 		session.setAttribute("QuestionsCorrectes", vQuestionBonne);
 		session.setAttribute("AllQuestions", vToutesQuestions);
+		
 		
 		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 		

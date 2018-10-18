@@ -29,7 +29,6 @@ public class gestionQuestionServlet extends HttpServlet {
 	 */
 	public gestionQuestionServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -38,23 +37,21 @@ public class gestionQuestionServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		
+
 		Utilisateur userConnected = (Utilisateur) session.getAttribute("isConnected");
 		if (userConnected != null) {
-			
+
 			actualiseQuestion(session);
 			this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
-			
+
 		} else {
 			response.sendRedirect("http://localhost:8080/QCMJEE/accueil");
 		}
-		
-		
+
 	}
 
-	public void actualiseQuestion(HttpSession session){
+	public void actualiseQuestion(HttpSession session) {
 
 		try {
 			ArrayList<Question> questions = gestionQuestions.selectAllQuestion();
@@ -68,7 +65,7 @@ public class gestionQuestionServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -82,34 +79,34 @@ public class gestionQuestionServlet extends HttpServlet {
 		int theme = Integer.parseInt(request.getParameter("theme"));
 		int nbR = Integer.parseInt(request.getParameter("nbR"));
 		int idRep = 0;
-		
+
 		if (typeQ.equals("typeRadio")) {
 			idRep = Integer.parseInt(request.getParameter("rep-valide-radio"));
 		}
-		
+
 		ArrayList<String> ennonce = new ArrayList<>();
 		ArrayList<Boolean> reps = null;
-		
-		if(typeQ.equals("typeCheckbox")){
+
+		if (typeQ.equals("typeCheckbox")) {
 			reps = new ArrayList<>();
 		}
 
 		for (int i = 1; i <= nbR; i++) {
 			ennonce.add(request.getParameter("rep-" + i));
-			if(reps != null){
+			if (reps != null) {
 				System.out.println(request.getParameter("rep-valide-" + i));
-				if(request.getParameter("rep-valide-" + i) != null ) {
+				if (request.getParameter("rep-valide-" + i) != null) {
 					reps.add(true);
 				} else {
 					reps.add(false);
-				}				
-			}			
+				}
+			}
 		}
 
 		ArrayList<Proposition> reponses = new ArrayList<>();
-		
+
 		if (reps != null) {
-			for(int i = 0; i < nbR; i++) {
+			for (int i = 0; i < nbR; i++) {
 				reponses.add(new Proposition(ennonce.get(i), reps.get(i)));
 			}
 		} else {
@@ -129,12 +126,12 @@ public class gestionQuestionServlet extends HttpServlet {
 		} catch (SQLException e) {
 			e.getMessage();
 		}
-		
+
 		HttpSession session = request.getSession();
-		
+
 		actualiseQuestion(session);
-		
-		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);		
+
+		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 	}
 
 }

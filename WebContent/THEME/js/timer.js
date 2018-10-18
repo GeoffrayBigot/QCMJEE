@@ -6,7 +6,7 @@ $( document ).ready(function() {
 	timeM = time /60;
 	
 	setInterval(function() {
-		text.innerHTML = "Temps restant : "+ timeM + " minutes et "+ timeS + " secondes";
+		text.innerHTML = "Temps restant : "+ --timeM + " minutes et "+ --timeS + " secondes";
 	}, 60000);
 	
 	setInterval(function() {
