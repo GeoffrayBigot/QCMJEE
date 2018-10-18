@@ -22,7 +22,7 @@ public class QuestionDAOJdbcImpl {
 			+ " join Theme t on t.idTheme = q.idTheme where t.idTheme=?";
 	
 	private static final String selectQuestionById ="select idQuestion, enonce, media, points, q.idTheme, t.libelle from Question q"
-			+ " join Theme t on t.idTheme = q.idTheme where t.idTheme=q.idTheme and q.idQuestion=";
+			+ " join Theme t on t.idTheme = q.idTheme where t.idTheme=q.idTheme and q.idQuestion=?";
 	public ArrayList<Question> selectAll() throws SQLException {
 		Question uneQuestion = null;
 		ArrayList<Question> questions = new ArrayList<>();
