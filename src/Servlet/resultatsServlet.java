@@ -15,6 +15,7 @@ import bll.GestionEpreuve;
 import bll.GestionQuestions;
 import bo.Epreuve;
 import bo.EtatEpreuve;
+import bo.NiveauAquisition;
 import bo.Proposition;
 import bo.Question;
 
@@ -173,6 +174,14 @@ public class resultatsServlet extends HttpServlet {
 				try {
 					q = gestionQuestions.selectQuestionById(id);
 					epr.setNote(epr.getNote() + q.getPoint());
+					
+					if(epr.getNote() < epr.getTest().getSeuilBas()) {
+						epr.setNiveauAcquisition(NiveauAquisition.NA);
+					} else if(epr.getNote() > epr.getTest().getSeuilHaut()) {
+						epr.setNiveauAcquisition(NiveauAquisition.A);
+					} else {
+						epr.setNiveauAcquisition(NiveauAquisition.ECA);
+					}
 				} catch (SQLException e) {
 					throw new SQLException(e.getMessage());
 				}
@@ -180,6 +189,7 @@ public class resultatsServlet extends HttpServlet {
 			try {
 				gestionEpreuve.setEtat(epr);
 				gestionEpreuve.setNote(epr);
+				gestionEpreuve.setNiveauAquisition(epr);
 			} catch (SQLException e) {
 				throw new SQLException(e.getMessage());
 			}

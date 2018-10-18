@@ -66,4 +66,12 @@ public class GestionEpreuve {
 		}
 	}
 	
+	public void setNiveauAquisition(Epreuve epreuve) throws SQLException {
+		try {
+			epreuvesDAO.updateNiveauAquisition(epreuve);
+		} catch (SQLException e) {
+			throw new SQLException("probleme GestionEpreuve methode select questions by epreuve" + e.getMessage());
+
+		}
+	}
 }

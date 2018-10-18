@@ -16,9 +16,9 @@
 			</div>
 			<div class="col-6 text-right">
 				<select class="form-control" id="choixEpreuve">
-					<option value="EA" selected>EA</option>
-					<option value="EC">EC</option>
-					<option value="T ">T</option>
+					<option value="EA" selected>En attente</option>
+					<option value="EC">En cours</option>
+					<option value="T ">Terminée</option>
 				</select>
 			</div>
 		</div>
@@ -52,7 +52,7 @@
 						</td>
 					</c:if>
 					<c:if test="${e.etatEpreuve == 'T'}">
-						<td><a href="passageTest" class="btn btn-info">Aller aux
+						<td><a href="<%=request.getContextPath() %>/resultats" class="btn btn-info">Aller aux
 								resultats</a></td>
 					</c:if>
 				</tr>

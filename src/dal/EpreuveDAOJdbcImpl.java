@@ -20,6 +20,7 @@ public class EpreuveDAOJdbcImpl {
 	private static final String updateNote = "update Epreuve set note_obtenue = ? where idEpreuve = ?;";
 	private static final String selectById = "select e.dateDedutValidite, e.dateFinValidite, e.tempsEcoule, e.etat,e.note_obtenue,e.niveau_obtenu, test.idTest, test.libelle, test.description,test.duree, test.seuil_haut, test.seuil_bas, u.idUtilisateur, u.nom, u.prenom, u.email, u.password, u.codeProfil, u.codePromo, e.idEpreuve from EPREUVE e inner join Test test on e.idTest = test.idTest inner join Utilisateur u on u.idUtilisateur = e.idUtilisateur where e.idEpreuve = ?;";
 	private static final String updateEtatEpreuve = "update Epreuve set etat = ? where idEpreuve = ?;";
+	private static final String updateNiveauAquisitionEpreuve = "update Epreuve set niveau_obtenu = ? where idEpreuve = ?;";
 	private static final String updateAquisitionEpreuve = "update Epreuve set niveau_obtenu = ? where idEpreuve = ?;";
 
 	public static void insertEpreuve(Epreuve aEpreuve) throws SQLException {
@@ -185,6 +186,35 @@ public class EpreuveDAOJdbcImpl {
 		return vEpreuve;
 	}
 
+	
+	public static void updateNiveauAquisition(Epreuve epreuve) throws SQLException {
+		Connection cnx = null;
+		PreparedStatement stmt = null;
+
+		try {
+			cnx = DBConnection.seConnecter();
+			stmt = cnx.prepareStatement(updateAquisitionEpreuve);
+
+			stmt.setString(1, epreuve.getNiveauAcquisition().toString());
+			stmt.setInt(2, epreuve.getId());
+
+			stmt.execute();
+			System.out.println("Modification réalisée avec succès");
+
+		} catch (SQLException e) {
+			throw new SQLException("probleme EpreuveDAO methode updateNote" + e.getMessage());
+		} finally {
+			try {
+				cnx.close();
+			} catch (SQLException e) {
+				throw new SQLException("probleme Epreuve fermeture connexion" + e.getMessage());
+			}
+
+		}
+
+	}
+
+	
 	public static void updateNote(Epreuve epreuve) throws SQLException {
 		Connection cnx = null;
 		PreparedStatement stmt = null;
