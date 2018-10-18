@@ -51,10 +51,9 @@ public class resultatsServlet extends HttpServlet {
 		Epreuve vEpreuve = null;
 		int nbQuestions = Integer.parseInt(request.getParameter("nbQuestions"));
 		int nbRepsFormulaire = 0;
-		
-		ArrayList<String> idQuestions = new ArrayList<>();
-		ArrayList<Proposition> propositionsAttendues = new ArrayList<>();
 
+		ArrayList<Integer> idQuestions = new ArrayList<>();
+		ArrayList<Proposition> propositionsAttendues = new ArrayList<>();
 		HashMap<Integer, ArrayList<Integer>> vMapQuestionReponses = new HashMap<Integer, ArrayList<Integer>>();
 		ArrayList<Integer> vQuestionBonne = new ArrayList<Integer>();
 		ArrayList<Integer> vPropositionsOk = new ArrayList<Integer>();
@@ -62,23 +61,23 @@ public class resultatsServlet extends HttpServlet {
 		HashMap<Integer, Integer> vNbRepsParQuestion = new HashMap<Integer, Integer>();
 		HttpSession session = request.getSession();
 		int repEnCours = 0;
-		
+
 		try {
 			vEpreuve = recupEpreuve(request);
 		} catch (SQLException e) {
 			e.getMessage();
 		}
-	
+
 		nbRepsFormulaire = nbQuestions(nbQuestions, nbRepsFormulaire);
 		ArrayList<String> idReponsesSaisies = getReponsesCochees(request, nbRepsFormulaire);
-		
+
 		// On recupere les id des questions et les propositions attendues
 		for (int i = 1; i < nbQuestions; i++) {
-			String parameter = request.getParameter("q-" + i);
+			int parameter = Integer.parseInt(request.getParameter("q-" + i));
 			idQuestions.add(parameter);
 
 			try {
-				int idQuestion = Integer.parseInt(parameter);
+				int idQuestion = parameter;
 				ArrayList<Proposition> selectPropositionByIdQuestion = gestionQuestions
 						.selectPropositionByIdQuestion(idQuestion);
 
@@ -93,7 +92,7 @@ public class resultatsServlet extends HttpServlet {
 				}
 				vMapQuestionReponses.put(idQuestion, vPropositionsOk);
 				vMapReponsesDonnees.put(idQuestion, new ArrayList<>());
-				
+				System.out.println(idQuestion);
 				for (int j = 0; j < gestionQuestions.selectPropositionByIdQuestionWhereTrue(idQuestion).size(); j++) {
 					vMapReponsesDonnees.get(idQuestion).add(Integer.valueOf(idReponsesSaisies.get(repEnCours)));
 					repEnCours++;
@@ -105,7 +104,7 @@ public class resultatsServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
+
 		try {
 			setEtatNoteEpreuve(vEpreuve, vQuestionBonne);
 		} catch (SQLException e) {
@@ -113,20 +112,20 @@ public class resultatsServlet extends HttpServlet {
 		}
 
 		ArrayList<Question> vToutesQuestions = addAllQuestionsEpreuves(idQuestions);
-		
+
+		System.out.println(vToutesQuestions);
 		session.setAttribute("epreuve", vEpreuve);
 		session.setAttribute("QuestionsCorrectes", vQuestionBonne);
 		session.setAttribute("AllQuestions", vToutesQuestions);
 
 		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
-
 	}
 
-	private ArrayList<Question> addAllQuestionsEpreuves(ArrayList<String> idQuestions ) {
+	public ArrayList<Question> addAllQuestionsEpreuves(ArrayList<Integer> idQuestions) {
 		ArrayList<Question> vToutesQuestions = new ArrayList<>();
-		for(String i : idQuestions) {
+		for (int i : idQuestions) {
 			try {
-				vToutesQuestions.add(gestionQuestions.selectQuestionById( Integer.parseInt(i)));
+				vToutesQuestions.add(gestionQuestions.selectQuestionById(i));
 			} catch (NumberFormatException e) {
 				e.getMessage();
 			} catch (SQLException e) {
@@ -136,7 +135,7 @@ public class resultatsServlet extends HttpServlet {
 		return vToutesQuestions;
 	}
 
-	private ArrayList<String> getReponsesCochees(HttpServletRequest request, int nbRepsFormulaire) {
+	public ArrayList<String> getReponsesCochees(HttpServletRequest request, int nbRepsFormulaire) {
 		ArrayList<String> idReponsesSaisies = new ArrayList<>();
 		for (int i = 0; i <= nbRepsFormulaire; i++) {
 			String param = request.getParameter(String.valueOf(i));
@@ -147,7 +146,7 @@ public class resultatsServlet extends HttpServlet {
 		return idReponsesSaisies;
 	}
 
-	private int nbQuestions(int nbQuestions, int nbRepsFormulaire) {
+	public int nbQuestions(int nbQuestions, int nbRepsFormulaire) {
 		for (int i = 1; i < nbQuestions; i++) {
 			try {
 				nbRepsFormulaire += gestionQuestions.selectPropositionByIdQuestion(i).size();
@@ -160,28 +159,30 @@ public class resultatsServlet extends HttpServlet {
 
 	public Epreuve recupEpreuve(HttpServletRequest req) throws SQLException {
 		try {
-			 return gestionEpreuve.selectById(Integer.parseInt(req.getParameter("idEpreuve")));
+			return gestionEpreuve.selectById(Integer.parseInt(req.getParameter("idEpreuve")));
 		} catch (NumberFormatException | SQLException e) {
 			throw new SQLException(e.getMessage());
 		}
 	}
-	
+
 	public void setEtatNoteEpreuve(Epreuve epr, ArrayList<Integer> idCorrects) throws SQLException {
-		epr.setEtatEpreuve(EtatEpreuve.T);
-		for (int id : idCorrects) {
-			Question q;
+		if (epr.getEtatEpreuve() != EtatEpreuve.T) {
+			epr.setEtatEpreuve(EtatEpreuve.T);
+			for (int id : idCorrects) {
+				Question q;
+				try {
+					q = gestionQuestions.selectQuestionById(id);
+					epr.setNote(epr.getNote() + q.getPoint());
+				} catch (SQLException e) {
+					throw new SQLException(e.getMessage());
+				}
+			}
 			try {
-				q = gestionQuestions.selectQuestionById(id);
-				epr.setNote(epr.getNote() + q.getPoint());
+				gestionEpreuve.setEtat(epr);
+				gestionEpreuve.setNote(epr);
 			} catch (SQLException e) {
 				throw new SQLException(e.getMessage());
 			}
-		}
-		try {
-			gestionEpreuve.setEtat(epr);
-			gestionEpreuve.setNote(epr);
-		} catch (SQLException e) {
-			throw new SQLException(e.getMessage());
 		}
 	}
 }
