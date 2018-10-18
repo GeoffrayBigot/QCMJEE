@@ -18,6 +18,7 @@ import bo.Question;
 import bo.QuestionEpreuve;
 import bo.ReponseEpreuve;
 import bo.Section;
+import bo.Theme;
 import bo.Utilisateur;
 
 /**
@@ -43,13 +44,25 @@ public class passageTestServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		ArrayList<Proposition> propositions = new ArrayList<Proposition>();
 		Utilisateur userCo = (Utilisateur) session.getAttribute("isConnected");
 		try {
 			Epreuve epr = gestionEpreuve.selectById(Integer.parseInt(request.getParameter("idEpreuve")));
 			ArrayList<Section> sections = gestionEpreuve.selectSelonTest(epr.getTest().getIdTest());
 			addSectionToepreuve(sections, epr);
 			generationQuestions(epr);
-			System.out.println(epr);
+
+			ArrayList<QuestionEpreuve> questionsEpreuve = gestionEpreuve.selectQuestionsEpreuvesSelonIdEpreuve(epr.getId());
+			
+			for(QuestionEpreuve vQuestionEpreuve : questionsEpreuve ){
+				propositions.addAll(gestionQuest.selectPropositionByIdQuestion(vQuestionEpreuve.getIdQuestion()));
+			}
+			session.setAttribute("listReponsesEpreuve", propositions);
+			session.setAttribute("idEpreuve", epr.getId());
+
+			session.setAttribute("listQuestionsEpreuve", questionsEpreuve);
+			System.out.println(questionsEpreuve);
+
 		} catch (NumberFormatException e) {
 			e.getMessage();
 		} catch (SQLException e) {
@@ -66,6 +79,7 @@ public class passageTestServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+		System.out.println("yo");
 	}
 
 	public void addSectionToepreuve(ArrayList<Section> sections, Epreuve epr) {
@@ -95,6 +109,7 @@ public class passageTestServlet extends HttpServlet {
 			questionEpreuve = new QuestionEpreuve(q.getIdQuestion(), q.getTheme().getIdTheme(), q.getEnonce(), null,
 					q.getPoint());
 			epr.ajouter(questionEpreuve);
+			
 			propositions = gestionQuest.selectPropositionByIdQuestion(q.getIdQuestion());
 			for (Proposition p : propositions) {
 				vReponsesEpreuves

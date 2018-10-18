@@ -50,7 +50,7 @@
     <servlet-name>choixTestServlet</servlet-name>
     <url-pattern>/choixTest</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <description></description>
     <display-name>gestionQuestionServlet</display-name>
     <servlet-name>gestionQuestionServlet</servlet-name>
@@ -60,8 +60,7 @@
     <servlet-name>gestionQuestionServlet</servlet-name>
     <url-pattern>/gestionQuestion</url-pattern>
   </servlet-mapping>
-  
-    <servlet>
+  <servlet>
     <description></description>
     <display-name>passageTestServlet</display-name>
     <servlet-name>passageTestServlet</servlet-name>
@@ -70,5 +69,15 @@
   <servlet-mapping>
     <servlet-name>passageTestServlet</servlet-name>
     <url-pattern>/passageTest</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>resultatsServlet</display-name>
+    <servlet-name>resultatsServlet</servlet-name>
+    <servlet-class>Servlet.resultatsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>resultatsServlet</servlet-name>
+    <url-pattern>/resultats</url-pattern>
   </servlet-mapping>
 </web-app>

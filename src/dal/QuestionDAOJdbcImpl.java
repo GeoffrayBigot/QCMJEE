@@ -124,9 +124,8 @@ public class QuestionDAOJdbcImpl {
 		}
 		return questions;
 	}
-	public ArrayList<Question> selectById(int idQuestion) throws SQLException {
+	public Question selectById(int idQuestion) throws SQLException {
 		Question uneQuestion = null;
-		ArrayList<Question> questions = new ArrayList<>();
 		Connection cnx = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -137,8 +136,8 @@ public class QuestionDAOJdbcImpl {
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				uneQuestion = new Question(new Theme(rs.getInt(5), rs.getString(6)), rs.getInt(1), rs.getString(2), rs.getBytes(3), rs.getInt(4));
-				questions.add(uneQuestion);
 			}
+			
 		} catch (SQLException e) {
 			throw new SQLException("probleme QuestionDAO methode lister" + e.getMessage());
 		} finally {
@@ -149,6 +148,6 @@ public class QuestionDAOJdbcImpl {
 				throw new SQLException("probleme QuestionDAO fermeture connexion" + e.getMessage());
 			}
 		}
-		return questions;
+		return uneQuestion;
 	}
 }

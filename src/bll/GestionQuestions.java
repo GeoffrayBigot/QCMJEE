@@ -35,7 +35,13 @@ public class GestionQuestions {
 			throw new SQLException("probleme GestionQuestion fermeture connexion" + e.getMessage());
 		}
 	}
-	
+	public ArrayList<Proposition> selectPropositionByIdQuestionWhereTrue(int idQuestion) throws SQLException {
+		try {
+			return propositionDAO.selectByIdQuestionWhereTrue(idQuestion);	
+		} catch (SQLException e) {
+			throw new SQLException("probleme GestionQuestion fermeture connexion" + e.getMessage());
+		}
+	}
 	public ArrayList<Proposition> selectAllReponse() throws SQLException {
 		try {
 			return propositionDAO.selectAllReponse();	
@@ -76,5 +82,11 @@ public class GestionQuestions {
 			throw new SQLException("probleme Theme fermeture connexion" + e.getMessage());
 		}
 	}
-	
+	public Question selectQuestionById(int idQuestion) throws SQLException {
+		try {
+			return questionsDAO.selectById(idQuestion);
+		} catch (SQLException e) {			
+			throw new SQLException("probleme Theme fermeture connexion" + e.getMessage());
+		}
+	}
 }

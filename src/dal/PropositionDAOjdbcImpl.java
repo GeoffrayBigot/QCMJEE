@@ -13,6 +13,7 @@ import util.DBConnection;
 public class PropositionDAOjdbcImpl {
 
 	private static final String selectByIdQuestion = "Select idProposition, enonce, estBonne from Proposition where idQuestion =?;";
+	private static final String selectByIdQuestionWhereTrue = "Select idProposition, enonce, estBonne from Proposition where idQuestion =? and estBonne=1;";
 	private static final String selectAll = "Select idProposition, enonce, estBonne,idQuestion from Proposition ;";
 	public ArrayList<Proposition> selectByIdQuestion(int idQuestion) throws SQLException {
 		ArrayList<Proposition> propositions = new ArrayList<>();
@@ -27,7 +28,28 @@ public class PropositionDAOjdbcImpl {
 			stmt.setInt(1, idQuestion);
 			rs = stmt.executeQuery();
 			while(rs.next()) {
-				uneProposition = new Proposition(rs.getInt(1), rs.getString(2), rs.getBoolean(3));
+				uneProposition = new Proposition(rs.getInt(1), rs.getString(2), rs.getBoolean(3), idQuestion);
+				propositions.add(uneProposition);
+			}
+		} catch (SQLException e) {
+			throw new SQLException("probleme PropositionDAO methode lister" + e.getMessage());
+		}
+		return propositions;
+	}
+	public ArrayList<Proposition> selectByIdQuestionWhereTrue(int idQuestion) throws SQLException {
+		ArrayList<Proposition> propositions = new ArrayList<>();
+		Proposition uneProposition = null;
+		Connection cnx = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			cnx = DBConnection.seConnecter();
+			stmt = cnx.prepareStatement(selectByIdQuestionWhereTrue);
+			stmt.setInt(1, idQuestion);
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				uneProposition = new Proposition(rs.getInt(1), rs.getString(2), rs.getBoolean(3), idQuestion);
 				propositions.add(uneProposition);
 			}
 		} catch (SQLException e) {
