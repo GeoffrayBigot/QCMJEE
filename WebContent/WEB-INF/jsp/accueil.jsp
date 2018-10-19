@@ -28,7 +28,7 @@
 			</c:if>
 			<c:if test="${isConnected.profil.codeProfil == 3 }">
 				<div class="col-sm-6">
-					<a class="btn btn-info" href="choixTest">Passer une epreuves</a>
+					<a class="btn btn-info" href="choixTest">Passer une epreuve</a>
 				</div>
 			</c:if>
 		</div>
