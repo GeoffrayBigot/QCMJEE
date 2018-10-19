@@ -68,8 +68,6 @@
 		<c:if test="${e.etatEpreuve == 'EA'}">
 			<div class="modal fade"
 				id="modal-EA--<c:out value="${e.id}"></c:out>"
-				data-duree="<c:out value="${e.test.duree}"></c:out>"
-				data-temps="<c:out value="${e.tempsEcoule}"></c:out>"
 				tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
@@ -83,7 +81,6 @@
 						</div>
 						<div class="modal-body">
 							<p>${e.test.description}</p>
-							<p id="timer"></p>
 							<p>Le test va durer ${e.test.duree} minutes</p>
 							<p>êtes vous sûr de vouloir commencer ce test ?</p>
 						</div>
