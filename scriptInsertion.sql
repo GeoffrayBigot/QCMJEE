@@ -21,8 +21,8 @@ insert into TEST VALUES ('Test Java CDI', 'Premier test de Java CDI', 120, 70, 4
 
 
 insert into QUESTION VALUES ('Est ce que JAVA c''est bien ?', null, 1, 2)
-insert into QUESTION VALUES ('Java est-il un langue compilé ?', null, 1, 2)
-insert into QUESTION VALUES ('Apprécie tu le java ee ?', null, 1, 1)
+insert into QUESTION VALUES ('Java est-il un langage compilé ?', null, 1, 2)
+insert into QUESTION VALUES ('Apprécies-tu le java ee ?', null, 1, 1)
 insert into QUESTION VALUES ('Qu''est ce qu''une Servlet ?', null, 1, 1)
 
 insert into PROPOSITION VALUES ( 'Je passe svp', 0, 1)
